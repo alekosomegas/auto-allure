@@ -2,26 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground: white;
+  --background-rgb: 214, 219, 220;
+
+  --b1: #29253b;
+  --b2: #e5d9ca;
+  --b3: #5799bf;
+  --b4: #e85042;
+
+
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-rgb: 0, 0, 0;
   }
-}
+} */
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: var(--foreground);
+  background: rgb(var(--background-rgb));
+  padding-top: 70px;
+}
+
+.navbar {
+  background-color: var(--b1);
+}
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+.navbar-brand img {
+  margin-right: 10px;
+}
+
+.main-container {
+  height: calc(100vh - 70px);
+}
+
+.long {
+  background-color: var(--b4);
+
+  background: linear-gradient(43deg, rgba(215,79,66,1) 0%, rgba(232,80,66,1) 100%);
+}
+
+.short {
+  background-color: var(--b1);
+
+  background: linear-gradient(0deg, rgba(33,30,43,1) 0%, rgba(41,37,59,1) 100%);
+}
+
+button {
+  background-color: var(--b4);
+  color: var(--foreground);
 }
