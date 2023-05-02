@@ -1,6 +1,7 @@
 import React from 'react'
 import Flatpickr from 'react-flatpickr';
 import "flatpickr/dist/themes/dark.css";
+import {useRouter} from "next/router"
 
 function datesPicked(start, end) {
     if(start === undefined || end === undefined)  return false
@@ -14,11 +15,31 @@ function daysBetween(start, end) {
     return Math.round((end.getTime() - start.getTime()) / oneDay)
 }
 
-export default function CarBook() {
-    const [dateRange, setDateRange] = React.useState({
-        startDate: undefined,
-        endDate: undefined,
-    })
+
+
+export default function CarBook({ dateRange, setDateRange, carsResults, setCarsResults }) {
+    const router = useRouter();
+
+    async function handleSubmit(event, dateRange) {
+        event.preventDefault()
+        
+        const response = await fetch('api/hello', {
+            method: "POST",
+            body: JSON.stringify(dateRange)
+        })
+        // .then((res) => {
+        //     if (res.ok) {
+        //         router.push({
+        //             pathname: "/results",
+        //         })
+        //     }
+        // })
+
+        let data = await response.json()
+        setCarsResults(data)
+        //console.log(carsResults.data);
+        router.push("/results")
+    }
 
     return (
         <>
@@ -60,7 +81,8 @@ export default function CarBook() {
             <div>
                 {
                     datesPicked(dateRange.startDate, dateRange.endDate) &&
-                    <button>
+                    <button
+                    onClick={(event) => handleSubmit(event, dateRange)}>
                         FIND A CAR
                     </button>
                 }
