@@ -9,7 +9,6 @@ export default function Document() {
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
         <link href="https://fonts.googleapis.com/css2?family=Birthstone+Bounce:wght@500&family=Meddon&family=Pacifico&display=swap" rel="stylesheet"></link>
-
       </Head>
       <body>
         <Main />

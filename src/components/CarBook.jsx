@@ -29,7 +29,7 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
         .then(async (res) => {
             if(res.ok) {
                 let data = await res.json()
-                
+                console.log(data);
                 setCarsResults(prev => {
                     return {
                         ...prev,

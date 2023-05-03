@@ -69,3 +69,12 @@ button {
 .col-b4 {
   color: var(--b4);
 }
+
+.icon {
+  height: 13px;
+}
+.list-item {
+  display: block;
+  margin-left: 0.5rem;
+  height: 1.25rem;
+}

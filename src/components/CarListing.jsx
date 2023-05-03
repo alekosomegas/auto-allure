@@ -1,8 +1,6 @@
 import Image from "next/image"
 
 export default function CarListing( props ) {
-    console.log(props.car)
-
     return (
         <>
             <div className="listing relative bg-white text-black h-full min-w-fit grid grid-cols-2 rounded-2xl overflow-hidden mb-6 p-3">
@@ -23,13 +21,26 @@ export default function CarListing( props ) {
                 </div>
 
                 <div className="listing-specifications text-xs ">
-                    <ul>
-                        <li>{props.car.fuel}</li>
-                        <li>{props.car.number_doors}</li>
-                        <li>{props.car.large_bags} large</li>
-                        <li>{props.car.transmission.split(" ")[0]}</li>
-                        <li>{props.car.number_seats}</li>
-                    </ul>
+                    <span className="list-item">
+                        <img className="icon inline-block " src="icons\gas-pump-solid.svg" alt="" />
+                        <p className="inline-block ml-2 ">{props.car.fuel}</p>
+                    </span>
+                    <span className="list-item">
+                        <img className="icon inline-block" src="icons\car.png" alt="" />
+                        <p className="ml-2 inline-block">{props.car.number_doors} doors</p>
+                    </span>
+                    <span className="list-item">
+                        <img className="icon inline-block" src="icons\suitcase-solid.svg" alt="" />
+                        <p className="ml-2 inline-block">{props.car.large_bags} large bags</p>
+                    </span>
+                    <span className="list-item">
+                        <img className="icon inline-block" src="icons\manual-transmission.png" alt="" />
+                        <p className="ml-2 inline-block">{props.car.transmission.split(" ")[0]}</p>
+                    </span>
+                    <span className="list-item">
+                        <img className="icon inline-block" src="icons\car-seat.png" alt="" />
+                        <p className="ml-2 inline-block">{props.car.number_seats} seats</p>
+                    </span>
                 </div>
 
                 <div className="listing-img ">
