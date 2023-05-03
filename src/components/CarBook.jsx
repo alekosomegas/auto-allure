@@ -94,7 +94,7 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
                 <div className='street street3 mt-5 ml-[30px] bg-gray-400 w-[50px] h-2'></div>
 
 
-                <div className='car -mt-3 ml-8'>
+                <div className='car -mt-3 '>
                     <img width="130px" src='/icons/red-car.png'></img>
                 </div>
             </div>

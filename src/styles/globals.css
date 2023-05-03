@@ -153,6 +153,8 @@ button {
 }
 
 .car {
+  margin-left: 20%;
+  margin-right: 50%;
   opacity: 80%;
   animation: car 2s ease-in-out forwards infinite;
 }
