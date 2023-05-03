@@ -3,7 +3,7 @@ import CarListing from "@/components/CarListing"
 
 export default function Results( props ) {
     let items
-    if(props.carsResults.data.vehicles !== undefined) {
+    if(props.carsResults.data !== undefined && props.carsResults.data !== null ) {
         items = props.carsResults.data.vehicles.map((car) => <CarListing car={car} days={props.carsResults.days} /> )
     }
 
