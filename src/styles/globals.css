@@ -60,4 +60,12 @@ body {
 button {
   background-color: var(--b4);
   color: var(--foreground);
+  border: none;
+  padding: 0.5rem 1rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+}
+
+.col-b4 {
+  color: var(--b4);
 }

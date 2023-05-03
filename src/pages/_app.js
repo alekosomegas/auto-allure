@@ -10,7 +10,8 @@ export default function App({ Component, pageProps }) {
 })
 
   const [carsResults, setCarsResults] = React.useState({
-    data: null
+    data: null,
+    days: null
   })
 
   return (

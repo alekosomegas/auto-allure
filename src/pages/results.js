@@ -1,21 +1,17 @@
 
+import CarListing from "@/components/CarListing"
 
-export default function Results(carsResults) {
+export default function Results( props ) {
     let items
-    if(carsResults.carsResults.vehicles !== undefined) {
-        items = carsResults.carsResults.vehicles.map((car) => <li>{car.brand} {car.mark} ${car.price} <img src={car.thumbnail} /></li>)
+    if(props.carsResults.data.vehicles !== undefined) {
+        items = props.carsResults.data.vehicles.map((car) => <CarListing car={car} days={props.carsResults.days} /> )
     }
 
     return (
         <>
-                
-        <h1>Results</h1>
-        <h2>
-            
-            <ul>
+            <div className="cars grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-10">
                 {items}
-            </ul>
-        </h2>
+            </div>
         </>
 
 

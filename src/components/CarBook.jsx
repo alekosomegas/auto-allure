@@ -16,34 +16,34 @@ function daysBetween(start, end) {
 }
 
 
-
-export default function CarBook({ dateRange, setDateRange, carsResults, setCarsResults }) {
+export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
     const router = useRouter();
 
     async function handleSubmit(event, dateRange) {
         event.preventDefault()
         
-        const response = await fetch('api/hello', {
+        fetch('api/find-cars', {
             method: "POST",
             body: JSON.stringify(dateRange)
         })
-        // .then((res) => {
-        //     if (res.ok) {
-        //         router.push({
-        //             pathname: "/results",
-        //         })
-        //     }
-        // })
-
-        let data = await response.json()
-        setCarsResults(data)
-        //console.log(carsResults.data);
-        router.push("/results")
+        .then(async (res) => {
+            if(res.ok) {
+                let data = await res.json()
+                
+                setCarsResults(prev => {
+                    return {
+                        ...prev,
+                        data: data,
+                        days: daysBetween(dateRange.startDate, dateRange.endDate)
+                }})
+                
+                // setCarsResults(data)
+                router.push("/results")
+            }})
     }
 
     return (
         <>
-
             <div>
                 <h1>
                     <strong>
