@@ -36,8 +36,6 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
                         data: data,
                         days: daysBetween(dateRange.startDate, dateRange.endDate)
                 }})
-                
-                // setCarsResults(data)
                 router.push("/results")
             }})
     }
@@ -56,6 +54,7 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
                 <div className='flex flex-col w-[250px]'>
                     <label>Pick dates:</label>
                     <Flatpickr
+                    className=''
                         options = {{
                             mode:"range",
                             dateFormat:"d-m-Y",
@@ -86,6 +85,18 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
                         FIND A CAR
                     </button>
                 }
+            </div>
+
+            <div className=''>
+                <div className='street street0 mt-5 -ml-[20px] bg-gray-400 w-[50px] h-2'></div>
+                <div className='street street1 mt-5 ml-[30px] bg-gray-400 w-[50px] h-2'></div>
+                <div className='street street2 mt-5 ml-[30px] bg-gray-400 w-[50px] h-2'></div>
+                <div className='street street3 mt-5 ml-[30px] bg-gray-400 w-[50px] h-2'></div>
+
+
+                <div className='car -mt-3 ml-8'>
+                    <img width="130px" src='/icons/red-car.png'></img>
+                </div>
             </div>
 
         </>

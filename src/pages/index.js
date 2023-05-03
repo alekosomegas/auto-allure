@@ -11,9 +11,9 @@ export default function Home({ dateRange, setDateRange, carsResults, setCarsResu
 
   return (
     <main>
-      <div className='main-container flex justify-stretch overflow-hidden'>  
+      <div className='main-container flex justify-stretch overflow-hidden '>  
 
-        <div className='short grid items-center justify-center w-3/5 hover:w-4/6 hover:scale-110 ease-in-out duration-300'>
+        <div className='short grid items-center justify-center w-3/5 hover:w-4/6 hover:scale-110 ease-in-out duration-300 max-sm:grow'>
           <form className=''>
             <CarBook 
             dateRange={dateRange}
@@ -23,7 +23,7 @@ export default function Home({ dateRange, setDateRange, carsResults, setCarsResu
           </form>
         </div>
 
-        <div className='long grid items-center justify-center w-2/5 hover:w-4/5 hover:scale-110 ease-in-out duration-300'>
+        <div className='long grid items-center justify-center w-2/5 hover:w-4/5 hover:scale-110 ease-in-out duration-300 max-sm:hidden'>
           <div className=''>
             <LongTermBook />
           </div>

@@ -78,3 +78,94 @@ button {
   margin-left: 0.5rem;
   height: 1.25rem;
 }
+
+.street {
+  display: inline-block;
+
+}
+.street0 {
+  animation: street0 1s linear both infinite;
+}
+
+@keyframes street0 {
+  0% {
+    opacity: 40%;
+    transform: translateX(0px);
+  }
+  50% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 40%;
+      transform: translateX(250px);
+  }
+}
+.street1 {
+  animation: street1 1s linear both infinite 0.25s;
+}
+
+@keyframes street1 {
+  0% {
+    opacity: 40%;
+    transform: translateX(-80px);
+  }
+  50% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 40%;
+      transform: translateX(170px);
+  }
+}
+.street2 {
+  animation: street2 1s linear both infinite 0.5s;
+}
+
+@keyframes street2 {
+  0% {
+    opacity: 40%;
+    transform: translateX(-160px);
+  }
+  50% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 40%;
+      transform: translateX(90px);
+  }
+}
+.street3 {
+  animation: street3 1s linear both infinite 0.75s;
+}
+
+@keyframes street3 {
+  0% {
+    opacity: 40%;
+    transform: translateX(-240px);
+  }
+  50% {
+    opacity: 100%;
+  }
+  100% {
+      opacity: 40%;
+      transform: translateX(10px);
+  }
+}
+
+.car {
+  opacity: 80%;
+  animation: car 2s ease-in-out forwards infinite;
+}
+@keyframes car {
+  0% {
+    transform: rotate(-3deg) translateY(-12px);
+  }
+
+  50% {
+    transform: rotate(3deg) translateY(12px);
+
+  }
+  100% {
+    transform: rotate(-3deg) translateY(-12px);
+  }
+}
