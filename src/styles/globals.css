@@ -6,7 +6,7 @@
 
 :root {
   --foreground: white;
-  --background-rgb: 214, 219, 220;
+  --background: rgb(243, 243, 243);
 
   --b1: #29253b;
   --b2: #e5d9ca;
@@ -25,7 +25,7 @@
 
 body {
   color: var(--foreground);
-  background: rgb(var(--background-rgb));
+  background-color: var(--background);
   padding-top: 70px;
 }
 
@@ -170,4 +170,12 @@ button {
   100% {
     transform: rotate(-3deg) translateY(-12px);
   }
+}
+
+#aboutUs {
+
+}
+
+#aboutUs h1 {
+  color: var(--b4);
 }

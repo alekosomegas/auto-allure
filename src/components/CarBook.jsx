@@ -70,17 +70,17 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
                     />
                 </div>
 
-                {
-                    datesPicked(dateRange.startDate, dateRange.endDate) &&
-                    <h3>{daysBetween(dateRange.startDate, dateRange.endDate)} days</h3>
-                }
 
             </div>
+                {
+                    datesPicked(dateRange.startDate, dateRange.endDate) &&
+                    <small className=''>{daysBetween(dateRange.startDate, dateRange.endDate)} days</small>
+                }
 
             <div>
                 {
                     datesPicked(dateRange.startDate, dateRange.endDate) &&
-                    <button
+                    <button className='mt-2'
                     onClick={(event) => handleSubmit(event, dateRange)}>
                         FIND A CAR
                     </button>
@@ -97,6 +97,7 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
                 <div className='car -mt-3 '>
                     <img width="130px" src='/icons/red-car.png'></img>
                 </div>
+
             </div>
 
         </>
