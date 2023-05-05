@@ -33,7 +33,7 @@ export default function Steps( props ) {
                         <b className={`step-number ${props.step === 2 && "step-number-selected "} ${props.step > 2 && "step-number-done "}`}>2</b>
                         <div className="flex w-full justify-between ">
                             <span className="uppercase "> Car Choice</span>
-                            <span className={`${props.step !== 3 && "hidden"} underline decoration-highlight1`}> EDIT</span>
+                            <span className={`underline ${props.step !== 3 && "hidden "}  decoration-highlight1`}> EDIT</span>
                         </div>
                     </div>
 
