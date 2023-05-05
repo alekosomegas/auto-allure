@@ -88,10 +88,10 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
             </div>
 
             <div className=''>
-                <div className='street street0 mt-5 -ml-[20px] bg-gray-400 w-[50px] h-2'></div>
-                <div className='street street1 mt-5 ml-[30px] bg-gray-400 w-[50px] h-2'></div>
-                <div className='street street2 mt-5 ml-[30px] bg-gray-400 w-[50px] h-2'></div>
-                <div className='street street3 mt-5 ml-[30px] bg-gray-400 w-[50px] h-2'></div>
+                <div className='street street0 mt-5 -ml-[20px] bg-white w-[50px] h-2'></div>
+                <div className='street street1 mt-5 ml-[30px] bg-white w-[50px] h-2'></div>
+                <div className='street street2 mt-5 ml-[30px] bg-white w-[50px] h-2'></div>
+                <div className='street street3 mt-5 ml-[30px] bg-white w-[50px] h-2'></div>
 
 
                 <div className='car -mt-3 '>
