@@ -14,6 +14,8 @@ export default function App({ Component, pageProps }) {
     days: null
   })
 
+  const [selectedCar, setSelectedCar] = React.useState(false)
+
   return (
     <>
 
@@ -23,6 +25,8 @@ export default function App({ Component, pageProps }) {
         setDateRange={setDateRange}
         carsResults={carsResults}
         setCarsResults={setCarsResults}
+        selectedCar={selectedCar}
+        setSelectedCar={setSelectedCar}
       />
     </>
     

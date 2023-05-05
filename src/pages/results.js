@@ -1,17 +1,25 @@
 import Steps from "@/components/Steps"
 import CarListing from "@/components/CarListing"
+import React from "react"
 
 export default function Results( props ) {
+    const [step, setStep] = React.useState(2)
+
     let items
     if(props.carsResults.data !== undefined && props.carsResults.data !== null &&  props.carsResults.data.vehicles !== null && props.carsResults.data.vehicles !== undefined ) {
-        items = props.carsResults.data.vehicles.map((car) => <CarListing car={car} days={props.carsResults.days} /> )
+        items = props.carsResults.data.vehicles.map((car) => <CarListing car={car} days={props.carsResults.days} setSelectedCar={props.setSelectedCar} setStep={setStep} /> )
     }    
 
     return (
         <>
 
             <Steps 
-            dates={props.dateRange}/>
+                dates={props.dateRange}
+                step={step}
+                selectedCar={props.selectedCar}
+                setSelectedCar={props.setSelectedCar}
+                days={props.carsResults.days}
+            />
 
             <div className="cars grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-10">
                 {items}

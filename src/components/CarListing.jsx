@@ -1,6 +1,11 @@
 import Image from "next/image"
 
 export default function CarListing( props ) {
+    function handleClickSelect() {
+        props.setSelectedCar(props.car)
+        props.setStep(3)
+    }
+
     return (
         <>
             <div className="listing relative bg-white text-black h-full min-w-fit grid grid-cols-2 rounded-2xl overflow-hidden mb-6 p-3">
@@ -63,7 +68,9 @@ export default function CarListing( props ) {
 
                 <div className="listing-select justify-self-end self-end">
 
-                    <button>select</button>
+                    <button
+                    onClick={handleClickSelect}
+                    >select</button>
                 </div>
 
                 <div className="listing-cancel col-b4 text-sm">

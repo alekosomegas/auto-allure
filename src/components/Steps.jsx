@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "./logo";
+import Image from "next/image";
 
 export default function Steps( props ) {
 
@@ -18,10 +19,10 @@ export default function Steps( props ) {
             </div>
             <div className="steps text-sm  drop-shadow-lg fixed z-50 top-10 w-full bg-white">
 
-                <div className="steps-top grid grid-cols-4 mb-3 pt-3">
+                <div className="steps-top grid grid-cols-4 mb-3 pt-4">
 
                     <div className="step1 flex gap-2 items-center px-3">
-                        <b className="step-number  ">1</b>
+                        <b className={`step-number ${props.step === 1 && "step-number-selected "} ${props.step > 1 && "step-number-done "}`}>1</b>
                         <div className="flex w-full justify-between ">
                             <span className="uppercase "> Location Selection</span>
                             <span className="underline decoration-highlight1"> EDIT</span>
@@ -29,19 +30,21 @@ export default function Steps( props ) {
                     </div>
 
                     <div className="step2 flex gap-2 items-center px-3">
-                    <b className="step-number">2</b>
-                        <span className="uppercase "> Car Choice</span>
-                        <span className="hidden underline decoration-orange-500"> EDIT</span>
+                        <b className={`step-number ${props.step === 2 && "step-number-selected "} ${props.step > 2 && "step-number-done "}`}>2</b>
+                        <div className="flex w-full justify-between ">
+                            <span className="uppercase "> Car Choice</span>
+                            <span className={`${props.step !== 3 && "hidden"} underline decoration-highlight1`}> EDIT</span>
+                        </div>
                     </div>
 
                     <div className="step3 flex gap-2 items-center px-3">
-                    <b className="step-number">3</b>
+                    <b className={`step-number ${props.step === 3 && "step-number-selected "} ${props.step > 3 && "step-number-done "}`}>3</b>
                         <span className="uppercase "> Extras</span>
                         <span className="hidden underline decoration-orange-500"> EDIT</span>
                     </div>
 
                     <div className="step4 flex gap-2 items-center px-3">
-                    <b className="step-number">4</b>
+                    <b className={`step-number ${props.step === 4 && "step-number-selected "} ${props.step > 4 && "step-number-done "}`}>4</b>
                         <span className="uppercase "> Rental Total</span>
                         <span className="hidden underline decoration-orange-500"> EDIT</span>
                     </div>
@@ -49,45 +52,68 @@ export default function Steps( props ) {
 
                 <div className="steps-bottom grid grid-cols-4 ">
 
-                    <div className="step1 !border-l-0 step grid grid-cols-2">
-                        <div>
+                    <div className={`step1 ${props.step >= 1 && "step-selected"} !border-l-0 step grid grid-cols-2 `}>
+                        <div className="mb-2">
                             <strong className="text-xs"> Pick-up location</strong>
                             <h5>Limassol Office</h5>
+                            {
+                                props.dates.startDate &&
                             <small className="tracking-tighter">{props.dates.startDate
                                 .toLocaleString('default', { day:"numeric", month: 'long' })} 
                                 ,{" "+ props.dates.startDate
                                 .toLocaleString('default', { year:"numeric" })}
                                 {" - "+props.dates.startDate.toLocaleTimeString("default", { hour: "2-digit", minute: "2-digit" })}
                             </small>
+                            }
                         </div>
-                        <div className="justify-self-end mb-3">
+
+                        <div className="justify-self-end ">
                             <strong className=" text-xs"> Drop-off location</strong>
                             <h5>Limassol Office</h5>
+                            {props.dates.endDate &&
                             <small>{props.dates.endDate
                                 .toLocaleString('default', { day:"numeric", month: 'long' })} 
                                 ,{" "+ props.dates.endDate
                                 .toLocaleString('default', { year:"numeric" })}
                                 {" - "+props.dates.endDate.toLocaleTimeString("default", { hour: "2-digit", minute: "2-digit" })}
                             </small>
+                            }
                         </div>
                     </div>
+                    
+                    <div className={` step2 step ${props.step >= 2 && "step-selected"}`}>
+                        {
+                        props.selectedCar &&    
+                        <div className="flex flex-row justify-between">
+                            <div className="flex flex-col">
+                                <small className="text-sm">Group <strong>{props.selectedCar.group}</strong></small>
+                                <h4>{props.selectedCar.brand} {props.selectedCar.mark}</h4>
+                                <small>or similar model*</small>
+                                <small>€{props.days * props.selectedCar.price}</small>
+                            </div>
 
-                    <div className="step2 step">
+                            <Image 
+                                src={props.selectedCar.thumbnail} 
+                                width={80}
+                                height={60}
+                                alt="car"
+                            /> 
+                        </div>
+                        }
+                    </div>
+
+                    <div className={`step2 step ${props.step >= 3 && "step-selected"}`}>
 
                     </div>
 
-                    <div className="step3 step">
-
-                    </div>
-
-                    <div className="step4 step">
+                    <div className={`step2 step ${props.step >= 4 && "step-selected"}`}>
 
                     </div>
 
                 </div>
 
             </div>
-            <div className="min-h-[150px]">
+            <div className="min-h-[180px]">
 
             </div>
         </>

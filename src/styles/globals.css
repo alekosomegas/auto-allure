@@ -182,7 +182,7 @@ button {
 
 .step-number {
   color: white;
-  background-color: #5799bf;
+  background-color:rgb(191, 191, 191);
   display: inline-block;
   border-radius: 50%;
   width: 1rem;
@@ -192,8 +192,19 @@ button {
   font-size: .75rem;
 }
 
+.step-number-done {
+  background-color: var(--b3)
+}
+.step-number-selected {
+  background-color: var(--b4);
+}
+
 .step {
-  border-bottom: 5px solid var(--b4);
+  border-bottom: 5px solid rgb(191, 191, 191);
   border-left: 1px solid #bfbfc0;
   padding: 0.5rem  1rem 0.5rem 1rem;
+}
+
+.step-selected {
+  border-bottom: 5px solid var(--b4);
 }
