@@ -52,7 +52,7 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
 
             <div className='flex flex-row'>
                 <div className='flex flex-col w-[250px]'>
-                    <label>Pick dates:</label>
+                    <label>Select pick-up and drop-of dates:</label>
                     <Flatpickr
                     className=''
                         options = {{

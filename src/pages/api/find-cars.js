@@ -6,7 +6,6 @@ async function getCars(start, end) {
     "authorization" : "Bearer " + process.env.REACT_APP_KEY
   }) 
 
-  console.log(headers);
   let request = new Request(url, {
     method: "GET",
     headers: headers

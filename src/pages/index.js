@@ -2,6 +2,7 @@ import React from 'react'
 import { Inter } from 'next/font/google'
 import CarBook from '@/components/CarBook'
 import LongTermBook from '@/components/LongTermBook'
+import Navbar from '@/components/Navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -10,9 +11,11 @@ export default function Home({ dateRange, setDateRange, carsResults, setCarsResu
 
   return (
     <main>
-      <div className='main-container flex justify-stretch overflow-hidden '>  
+      <Navbar />
 
-        <div className='short grid items-center justify-center w-3/5 hover:w-4/6 hover:scale-110 ease-in-out duration-300 max-sm:grow'>
+      <div className='text-white main-container flex justify-stretch overflow-hidden '>  
+
+        <div className='short grid gap-4 items-center justify-center w-3/5 hover:w-4/6 hover:scale-110 ease-in-out duration-300 max-sm:grow'>
           <form className=''>
             <CarBook 
             dateRange={dateRange}
@@ -71,7 +74,7 @@ export default function Home({ dateRange, setDateRange, carsResults, setCarsResu
       </div>
 
       <section  id="contact-us" className='h-[40px]'></section>
-      <div className='p-4 bg-black h-52'>
+      <div className='p-4 bg-black h-52 text-white'>
         <h3>Contact Us</h3>
         <h7>Tel: +357-99 667777</h7>
         <br></br>
@@ -79,6 +82,7 @@ export default function Home({ dateRange, setDateRange, carsResults, setCarsResu
         <br></br>
         <h7>Address: Leoforos Amathous 32, Zanna Complex Block 1 Shop 8, Limassol, 4532</h7>
       </div>
+
     </main>
   )
 }

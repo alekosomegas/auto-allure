@@ -1,6 +1,5 @@
 import { Nav, Navbar, Container } from "react-bootstrap"
-import Image from 'next/image'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Logo from "./Logo"
 
 export default function MainNavbar() {
     return (
@@ -8,19 +7,8 @@ export default function MainNavbar() {
         <Container>
 
           <Navbar.Brand href="/" className="no-underline" > 
-            <Image
-                className="p-0"
-                src={"/company_logo_inv.png"}
-                width={40}
-                height={40}
-                alt={'logo'}
-            />
-            <div className="flex flex-col">
-                    <strong className="m-0 font-logo text-4xl tracking-wide text-white">auto-</strong>
-                <small className="text-[0.75rem] leading-[0.3rem] text-white">rent-a-car</small>
-            </div>
-            <strong className="relative font-logo text-5xl tracking-wide text-white">allure</strong>
-
+            <Logo 
+            icon={true}/>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

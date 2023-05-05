@@ -9,17 +9,17 @@ export default function LongTermBook({show, setShow}) {
 
             <div className="flex justify-center mx-12">
                 <h3 className="flex self-center " >
-                    <strong className="text-center " >Discover the advantages of long-term rental</strong>
+                    <strong className="text-center max-w-[22rem]" >Discover the advantages of long-term rental</strong>
                 </h3>
             </div>
 
             {
                 show &&
-                <img className="scale-50 -my-10" src="/icons/long-term-cars.png" alt="long-term-cars" />  
+                <img className="scale-50 opacity-90 -my-10" src="/icons/long-term-cars.png" alt="long-term-cars" />  
             }
 
-            <div className="flex justify-center">
-                <button >See Offers</button>
+            <div className="flex justify-center mt-2">
+                <button className="bg-white text-black">See Offers</button>
             </div>
         </div>
     )

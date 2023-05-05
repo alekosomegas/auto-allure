@@ -6,9 +6,17 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+
+    colors: {
+      dark: "#29253b",
+      highlight1: "#e85042",
+      highlight2: "#5799bf"
+    },
+
     extend: {
       fontFamily: {
-        logo: ["Birthstone Bounce, cursive"]
+        logo: ["Birthstone Bounce, cursive"],
+        body: ['Lato', "sans-serif"]
       },
     },
     container: {

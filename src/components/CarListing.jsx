@@ -16,7 +16,7 @@ export default function CarListing( props ) {
                     <small className="text-xs">or Similar*</small>
                 </div>
 
-                <div className="listing-info absolute right-5 top-6 text-sm underline decoration-orange-500">
+                <div className="listing-info absolute right-5 top-6 text-sm underline decoration-highlight1">
                     INFO
                 </div>
 
