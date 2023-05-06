@@ -41,53 +41,130 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
     }
 
     return (
-        <>
-            <div>
-                <h1>
-                    <strong>
-                        <span>Rent a car</span>
-                    </strong>
-                </h1>
-            </div>
+        <div className='flex flex-col'>                            
+            <datalist id="locations">
+                <option value="LIMASSOL OFFICE"/>  
+                <option value="LARNACA AIRPORT"/>
+                <option value="PAPHOS AIRPORT"/>
+                <option value="Other"/>
+            </datalist>
 
-            <div className='flex flex-row'>
-                <div className='flex flex-col w-[250px]'>
-                    <label>Select pick-up and drop-of dates:</label>
-                    <Flatpickr
-                    className=''
-                        options = {{
-                            mode:"range",
-                            dateFormat:"d-m-Y",
-                            minDate: new Date(),
-                        }}
-                        onChange = {(newDate) => {setDateRange(prev => {
-                            return {
-                                ...prev,
-                                startDate: newDate[0],
-                                endDate: newDate[1],
-                            }
-                        })}} 
-                    />
+            {
+                !datesPicked(dateRange.startDate, dateRange.endDate) &&
+                <div>
+                    <h1>
+                        <strong>
+                            <span>Rent a car</span>
+                        </strong>
+                    </h1>
+
+                    <div className='flex flex-col '>
+                        <label>Select pick-up and drop-of dates:</label>
+                        <Flatpickr
+                        className=''
+                            options = {{
+                                mode:"range",
+                                dateFormat:"d-m-Y",
+                                minDate: "today",
+                            }}
+                            onChange = {(newDate) => {setDateRange(prev => {
+                                return {
+                                    ...prev,
+                                    startDate: newDate[0],
+                                    endDate: newDate[1],
+                                }
+                            })}} 
+                        />
+                    </div>
                 </div>
+            }
 
+            {
+                datesPicked(dateRange.startDate, dateRange.endDate) &&
 
-            </div>
-                {
-                    datesPicked(dateRange.startDate, dateRange.endDate) &&
-                    <small className=''>{daysBetween(dateRange.startDate, dateRange.endDate)} days</small>
-                }
+                <form className='max-w-lg min-w-md flex-col mx-4 '>
 
-            <div>
-                {
-                    datesPicked(dateRange.startDate, dateRange.endDate) &&
+                    <div className='grid grid-cols-2 gap-4 mb-4 max-md:grid-cols-1 '>
+
+                        <div id='pickup-location' className='grid grid-cols-1'>
+                            <label>Pick-up Location</label>
+                            {/* <input type="text" name="dropoff-location" list="locations" defaultValue={"LIMASSOL OFFICE"}/> */}
+                            <select type="text" className="">
+                                <option value="LIMASSOL OFFICE">LIMASSOL OFFICE</option>  
+                                <option value="LARNACA AIRPORT">LARNACA AIRPORT</option>
+                                <option value="PAPHOS AIRPORT">PAPHOS AIRPORT</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div id='dropoff-location' className='grid grid-cols-1'>
+                            <label>Drop-off Location</label>
+                            {/* <input type="text" name="dropoff-location" list="locations" defaultValue={"LIMASSOL OFFICE"}/> */}
+                            <select type="text">
+                                <option value="LIMASSOL OFFICE">LIMASSOL OFFICE</option>  
+                                <option value="LARNACA AIRPORT">LARNACA AIRPORT</option>
+                                <option value="PAPHOS AIRPORT">PAPHOS AIRPORT</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div id='datetime' className='md:col-span-2 grid grid-cols-2 gap-4'>
+                            <div id="pickup-datetime">
+                                <div>
+                                    <label>Pick-up Date</label>
+                                        <div className='grid grid-cols-2 -mt-2'>
+                                            <Flatpickr className='!rounded-r-none'
+                                                options={{
+                                                    defaultDate:dateRange.startDate,
+                                                    minDate: "today",
+                                                    dateFormat:"d M y",
+                                                }}/>
+                                            <Flatpickr className='bg-grey !rounded-l-none'
+                                                options={{
+                                                    defaultDate: "10:00",
+                                                    enableTime: true,
+                                                    noCalendar: true,
+                                                    dateFormat: "H:i",
+                                                    time_24hr: true
+                                                }}/>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <div id="dropoff-datetime">
+                                <div>
+                                    <label>Drop-off Date</label>
+                                       <div className='grid grid-cols-2 -mt-2'>
+                                            <Flatpickr className='!rounded-r-none'
+                                                options={{
+                                                    defaultDate:dateRange.endDate,
+                                                    minDate: "today",
+                                                    dateFormat:"d M y",
+                                                }}/>
+                                            <Flatpickr className='bg-grey !rounded-l-none'
+                                                options={{
+                                                    defaultDate: "10:00",
+                                                    enableTime: true,
+                                                    noCalendar: true,
+                                                    dateFormat: "H:i",
+                                                    time_24hr: true
+                                                }}/>
+                                       </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <button className='mt-2'
                     onClick={(event) => handleSubmit(event, dateRange)}>
                         FIND A CAR
                     </button>
-                }
-            </div>
+                </form>
+            }
 
-            <div className=''>
+
+
+            <div className='align-self-center'>
                 <div className='street street0 mt-5 -ml-[20px] bg-white w-[50px] h-2'></div>
                 <div className='street street1 mt-5 ml-[30px] bg-white w-[50px] h-2'></div>
                 <div className='street street2 mt-5 ml-[30px] bg-white w-[50px] h-2'></div>
@@ -100,6 +177,6 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
 
             </div>
 
-        </>
+        </div>
     )
 }

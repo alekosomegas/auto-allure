@@ -10,7 +10,8 @@ module.exports = {
     colors: {
       dark: "#29253b",
       highlight1: "#e85042",
-      highlight2: "#5799bf"
+      highlight2: "#5799bf",
+      grey: "#D3D3D3"
     },
 
     extend: {

@@ -15,19 +15,19 @@ export default function Home({ dateRange, setDateRange, carsResults, setCarsResu
 
       <div className='text-white main-container flex justify-stretch overflow-hidden '>  
 
-        <div className='short grid gap-4 items-center justify-center w-3/5 hover:w-4/6 hover:scale-110 ease-in-out duration-300 max-sm:grow'>
-          <form className=''>
+        <div className='short grid gap-4 items-center justify-center w-3/5 hover:w-4/6 hover:scale-100 ease-in-out duration-300 max-sm:grow min-w-fit'>
+          <div className=''>
             <CarBook 
             dateRange={dateRange}
             setDateRange={setDateRange}
             carsResults={carsResults}
             setCarsResults={setCarsResults}/>
-          </form>
+          </div>
         </div>
 
         <div 
           onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)} 
-          className='long grid items-center justify-center w-2/5 hover:w-4/5 hover:scale-110 ease-in-out duration-300 max-sm:hidden'>
+          className='long grid items-center justify-center w-2/5 hover:w-4/5 hover:scale-100 ease-in-out duration-300 max-sm:hidden'>
           <div className=''>
             <LongTermBook
             show={show}
