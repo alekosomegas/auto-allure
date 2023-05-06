@@ -3,7 +3,9 @@ async function getCars(start, end) {
   let url = "https://api.rentsyst.com/v1/booking/search?pickup_location=2907&return_location=2907&dates=" + start + "%2010%3A00%20-%20" +end+ "%2010%3A00"
   let headers = new Headers({
     "accept" : "application/json",
-    "authorization" : process.env.REACT_APP_KEY
+    "authorization" : process.env.REACT_APP_KEY,
+    "client_id": process.env.REACT_APP_CLIENT_ID,
+    "secret_id": process.env.REACT_APP_CLIENT_SECRET,
   }) 
 
   console.log(headers);
