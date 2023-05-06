@@ -1,8 +1,14 @@
 import React from "react";
 import Logo from "./Logo";
 import Image from "next/image";
+import {useRouter} from "next/router"
 
 export default function Steps( props ) {
+    const router = useRouter();
+    
+    function handleEdit1Clicked() {
+        router.push("/")
+    }
 
     return (
         <>
@@ -25,7 +31,7 @@ export default function Steps( props ) {
                         <b className={`step-number ${props.step === 1 && "step-number-selected "} ${props.step > 1 && "step-number-done "}`}>1</b>
                         <div className="flex w-full justify-between ">
                             <span className="uppercase "> Location Selection</span>
-                            <span className="underline decoration-highlight1"> EDIT</span>
+                            <span onClick={handleEdit1Clicked}  className="cursor-pointer underline decoration-highlight1"> EDIT</span>
                         </div>
                     </div>
 
@@ -55,7 +61,7 @@ export default function Steps( props ) {
                     <div className={`step1 ${props.step >= 1 && "step-selected"} !border-l-0 step grid grid-cols-2 `}>
                         <div className="mb-2">
                             <strong className="text-xs"> Pick-up location</strong>
-                            <h5>Limassol Office</h5>
+                            <h5>{props.locations.pick}</h5>
                             {
                                 props.dates.startDate &&
                             <small className="tracking-tighter">{props.dates.startDate
@@ -69,7 +75,7 @@ export default function Steps( props ) {
 
                         <div className="justify-self-end ">
                             <strong className=" text-xs"> Drop-off location</strong>
-                            <h5>Limassol Office</h5>
+                            <h5>{props.locations.drop}</h5>
                             {props.dates.endDate &&
                             <small>{props.dates.endDate
                                 .toLocaleString('default', { day:"numeric", month: 'long' })} 

@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({ dateRange, setDateRange, carsResults, setCarsResults }) {
+export default function Home({ dateRange, setDateRange, carsResults, setCarsResults, locations, setLocations }) {
   const [show, setShow] = React.useState(false)
 
   return (
@@ -21,7 +21,10 @@ export default function Home({ dateRange, setDateRange, carsResults, setCarsResu
             dateRange={dateRange}
             setDateRange={setDateRange}
             carsResults={carsResults}
-            setCarsResults={setCarsResults}/>
+            setCarsResults={setCarsResults}
+            locations={locations}
+            setLocations={setLocations}
+            />
           </div>
         </div>
 

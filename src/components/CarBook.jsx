@@ -16,7 +16,7 @@ function daysBetween(start, end) {
 }
 
 
-export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
+export default function CarBook({ dateRange, setDateRange, setCarsResults, locations, setLocations }) {
     const router = useRouter();
 
     async function handleSubmit(event, dateRange) {
@@ -68,6 +68,8 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
                                 minDate: "today",
                             }}
                             onChange = {(newDate) => {setDateRange(prev => {
+                                newDate[0].setHours(10)
+                                newDate[1] && newDate[1].setHours(10)              
                                 return {
                                     ...prev,
                                     startDate: newDate[0],
@@ -89,10 +91,10 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
                         <div id='pickup-location' className='grid grid-cols-1'>
                             <label>Pick-up Location</label>
                             {/* <input type="text" name="dropoff-location" list="locations" defaultValue={"LIMASSOL OFFICE"}/> */}
-                            <select type="text" className="">
-                                <option value="LIMASSOL OFFICE">LIMASSOL OFFICE</option>  
-                                <option value="LARNACA AIRPORT">LARNACA AIRPORT</option>
-                                <option value="PAPHOS AIRPORT">PAPHOS AIRPORT</option>
+                            <select type="text" defaultValue={locations.pick} className="" onChange={event => {setLocations(prev => {return {...prev, pick: event.target.value, drop: prev.drop}})}}>
+                                <option value="Limassol Office">LIMASSOL OFFICE</option>  
+                                <option value="Larnaka Airport">LARNACA AIRPORT</option>
+                                <option value="Paphos Airport">PAPHOS AIRPORT</option>
                                 <option value="Other">Other</option>
                             </select>
                         </div>
@@ -100,10 +102,10 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
                         <div id='dropoff-location' className='grid grid-cols-1'>
                             <label>Drop-off Location</label>
                             {/* <input type="text" name="dropoff-location" list="locations" defaultValue={"LIMASSOL OFFICE"}/> */}
-                            <select type="text">
-                                <option value="LIMASSOL OFFICE">LIMASSOL OFFICE</option>  
-                                <option value="LARNACA AIRPORT">LARNACA AIRPORT</option>
-                                <option value="PAPHOS AIRPORT">PAPHOS AIRPORT</option>
+                            <select type="text" defaultValue={locations.drop} onChange={event => {setLocations(prev => {return {...prev, pick: prev.pick , drop: event.target.value}})}}>
+                                <option value="Limassol Office">LIMASSOL OFFICE</option>  
+                                <option value="Larnaka Airport">LARNACA AIRPORT</option>
+                                <option value="Paphos Airport">PAPHOS AIRPORT</option>
                                 <option value="Other">Other</option>
                             </select>
                         </div>
@@ -118,6 +120,13 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
                                                     defaultDate:dateRange.startDate,
                                                     minDate: "today",
                                                     dateFormat:"d M y",
+                                                }}
+                                                onChange={newDate => {
+                                                    setDateRange(prev => {
+                                                        return {
+                                                            ...prev,
+                                                            startDate: newDate[0],
+                                                        }})
                                                 }}/>
                                             <Flatpickr className='bg-grey !rounded-l-none'
                                                 options={{
@@ -126,6 +135,14 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
                                                     noCalendar: true,
                                                     dateFormat: "H:i",
                                                     time_24hr: true
+                                                }}
+                                                onChange={newTime => {
+                                                    setDateRange(prev => {
+                                                        prev.startDate.setHours(newTime[0].getHours())
+                                                        prev.startDate.setMinutes(newTime[0].getMinutes())
+                                                        return {
+                                                            ...prev,
+                                                        }})
                                                 }}/>
                                         </div>
                                 </div>
@@ -140,6 +157,13 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
                                                     defaultDate:dateRange.endDate,
                                                     minDate: "today",
                                                     dateFormat:"d M y",
+                                                }}
+                                                onChange={newDate => {
+                                                    setDateRange(prev => {
+                                                        return {
+                                                            ...prev,
+                                                            endDate: newDate[0],
+                                                        }})
                                                 }}/>
                                             <Flatpickr className='bg-grey !rounded-l-none'
                                                 options={{
@@ -148,6 +172,14 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults }) {
                                                     noCalendar: true,
                                                     dateFormat: "H:i",
                                                     time_24hr: true
+                                                }}
+                                                onChange={newTime => {
+                                                    setDateRange(prev => {
+                                                        prev.endDate.setHours(newTime[0].getHours())
+                                                        prev.endDate.setMinutes(newTime[0].getMinutes())
+                                                        return {
+                                                            ...prev,
+                                                        }})
                                                 }}/>
                                        </div>
                                 </div>

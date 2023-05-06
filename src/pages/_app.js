@@ -14,6 +14,11 @@ export default function App({ Component, pageProps }) {
     days: null
   })
 
+  const [locations, setLocations] = React.useState({
+    pick: "Limassol Office",
+    drop: "Limassol Office",
+  })
+
   const [selectedCar, setSelectedCar] = React.useState(false)
 
   return (
@@ -27,6 +32,8 @@ export default function App({ Component, pageProps }) {
         setCarsResults={setCarsResults}
         selectedCar={selectedCar}
         setSelectedCar={setSelectedCar}
+        locations={locations}
+        setLocations={setLocations}
       />
     </>
     

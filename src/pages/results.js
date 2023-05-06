@@ -19,6 +19,8 @@ export default function Results( props ) {
                 selectedCar={props.selectedCar}
                 setSelectedCar={props.setSelectedCar}
                 days={props.carsResults.days}
+                locations={props.locations}
+                setLocations={props.setLocations}
             />
 
             <div className="cars grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-10">
