@@ -5,9 +5,28 @@ import {useRouter} from "next/router"
 
 export default function Steps( props ) {
     const router = useRouter();
+
+    const [showSummary, setShowSummary] = React.useState(false)
     
     function handleEdit1Clicked() {
         router.push("/")
+    }
+
+    function handleEdit2Clicked() {
+        props.setStep(prev => {
+                return prev-1
+        })
+        props.setSelectedCar(null)
+        router.push("/results")
+    }
+
+    function handleBackClicked() {
+        switch (props.step) {
+            case 2: handleEdit1Clicked()
+            break
+            case 3: handleEdit2Clicked()
+            break
+        }
     }
 
     const stepsText = {
@@ -48,7 +67,7 @@ export default function Steps( props ) {
                         <b className={`step-number ${props.step === 2 && "step-number-selected "} ${props.step > 2 && "step-number-done "}`}>2</b>
                         <div className="flex w-full justify-between ">
                             <span className="uppercase "> Car Choice</span>
-                            <span className={`underline ${props.step !== 3 && "hidden "}  decoration-highlight1`}> EDIT</span>
+                            <span onClick={handleEdit2Clicked} className={`cursor-pointer underline ${props.step !== 3 && "hidden "}  decoration-highlight1`}> EDIT</span>
                         </div>
                     </div>
 
@@ -133,21 +152,77 @@ export default function Steps( props ) {
             </div>
         </div>
 
+
+
         <div className="lg:hidden bg-highlight1 text-white w-full px-4 fixed z-50 top-10 h-9">
             <div className="flex flex-wrap justify-between align-bottom">
-                <span className="mt-[0.75rem] text-xs">BACK</span>
+                <span onClick={handleBackClicked} className="cursor-pointer mt-[0.75rem] text-xs">BACK</span>
                 <div className="flex flex-row gap-2">
                     <h4 className="bg-dark rounded-[50%] w-5 text-sm mt-2 text-center text-highlight1"><strong>{props.step}</strong></h4>
                     <h4 className="text-[1.1rem] mt-2">{stepsText[props.step]}</h4>
                 </div>
-                <span className="mt-[0.75rem] text-xs">SUMMURY</span>
+                <span onClick={() => setShowSummary(!showSummary)} className="cursor-pointer mt-[0.75rem] text-xs">SUMMARY</span>
             </div>
         </div>
 
         {props.step > 2 &&
             <div className="lg:hidden bg-white w-full z-50 top-20 h-9 pt-2 text-center">
-                <span className="text-center">Total:</span>
+                <span className="text-center">Total: €{props.days * props.selectedCar.price}</span>
             </div>
+        }
+
+        {showSummary &&
+        <div className="bg-white">
+
+            <div className="mb-2 px-6">
+                <strong className="text-xs"> Pick-up location</strong>
+                <h5 className="-mb-1">{props.locations.pick}</h5>
+                {
+                    props.dates.startDate &&
+                <small className="tracking-tighter">{props.dates.startDate
+                    .toLocaleString('default', { day:"numeric", month: 'long' })} 
+                    ,{" "+ props.dates.startDate
+                    .toLocaleString('default', { year:"numeric" })}
+                    {" - "+props.dates.startDate.toLocaleTimeString("default", { hour: "2-digit", minute: "2-digit" })}
+                </small>
+                }
+            </div>
+
+            <div className="mb-2 px-6 ">
+                <strong className=" text-xs"> Drop-off location</strong>
+                <h5 className="-mb-1">{props.locations.drop}</h5>
+                {props.dates.endDate &&
+                <small>{props.dates.endDate
+                    .toLocaleString('default', { day:"numeric", month: 'long' })} 
+                    ,{" "+ props.dates.endDate
+                    .toLocaleString('default', { year:"numeric" })}
+                    {" - "+props.dates.endDate.toLocaleTimeString("default", { hour: "2-digit", minute: "2-digit" })}
+                </small>
+                }
+            </div>
+
+            <div className="mb-2 px-6 pr-10">
+                {
+                props.selectedCar &&    
+                <div className="flex flex-row justify-between">
+                    <div className="flex flex-col">
+                        <small className="text-xs">Group <strong>{props.selectedCar.group}</strong></small>
+                        <h4 className="-mb-1">{props.selectedCar.brand} {props.selectedCar.mark}</h4>
+                        <small className="text-xs">or similar model*</small>
+                    </div>
+
+                    <Image 
+                        className=""
+                        src={props.selectedCar.thumbnail} 
+                        width={120}
+                        height={80}
+                        alt="car"
+                    /> 
+                </div>
+                }
+            </div>
+
+        </div>
         }
         </>
     )

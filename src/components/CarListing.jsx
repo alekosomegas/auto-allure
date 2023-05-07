@@ -1,13 +1,17 @@
 import Image from "next/image"
 import React from "react"
+import {useRouter} from "next/router"
 
 export default function CarListing( props ) {
+    const router = useRouter();
+
     const [showInfo, setShowInfo] = React.useState(false)
     const [showCancelInfo, setShowCancelInfo] = React.useState(false)
 
     function handleClickSelect() {
         props.setSelectedCar(props.car)
         props.setStep(3)
+        router.push("/extras")
     }
 
     return (

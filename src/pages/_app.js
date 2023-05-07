@@ -21,6 +21,7 @@ export default function App({ Component, pageProps }) {
 
   const [selectedCar, setSelectedCar] = React.useState(false)
 
+  const [step, setStep] = React.useState(2)
   return (
     <>
 
@@ -34,6 +35,8 @@ export default function App({ Component, pageProps }) {
         setSelectedCar={setSelectedCar}
         locations={locations}
         setLocations={setLocations}
+        step={step}
+        setStep={setStep}
       />
     </>
     
