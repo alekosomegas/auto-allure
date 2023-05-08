@@ -15,9 +15,8 @@ export default function Extras(props) {
                 locations={props.locations}
                 setLocations={props.setLocations}
             />
-            <h1>Extras</h1>
             
-            <div className="m-5">
+            <div className="m-5 md:grid md:grid-cols-2 gap-4">
             <div>
                 <Extra
                     title={"Additional Driver"}
@@ -42,6 +41,16 @@ export default function Extras(props) {
                     info={"reduce your liability to a minimum charge, according to the car group you have picked, by paying an additional small fee in the price of collision damage waiver."}
                 />
             </div>
+            {(props.locations.pick === "Other" || props.locations.drop === "Other") &&
+            <div>
+                <Extra
+                    title={"Additional coverage (SCDW)"}
+                    price={15}
+                    icon={"/icons/car.png"}
+                    info={"reduce your liability to a minimum charge, according to the car group you have picked, by paying an additional small fee in the price of collision damage waiver."}
+                />
+            </div>
+            }
             </div>
         </>
     )
