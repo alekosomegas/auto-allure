@@ -32,7 +32,7 @@ export default function Steps( props ) {
     const stepsText = {
         1: "Location Selection",
         2: "Car Choice",
-        3: "Extras",
+        3: "Choose Extras",
         4: "Rental Total"
     }
 
@@ -73,7 +73,7 @@ export default function Steps( props ) {
 
                     <div className="step3 flex gap-2 items-center px-3">
                     <b className={`step-number ${props.step === 3 && "step-number-selected "} ${props.step > 3 && "step-number-done "}`}>3</b>
-                        <span className="uppercase "> Extras</span>
+                        <span className="uppercase ">Choose Extras</span>
                         <span className="hidden underline decoration-orange-500"> EDIT</span>
                     </div>
 

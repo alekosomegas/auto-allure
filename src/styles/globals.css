@@ -221,3 +221,12 @@ label {
 .step-selected {
   border-bottom: 5px solid var(--b4);
 }
+
+form input, select, textarea {
+  background-color: var(--background);
+  border: solid ;
+  border-width: 0.01rem;
+  border-color: lightgray;
+  margin: 0.2rem;
+  margin-left: 0.075rem;
+}
