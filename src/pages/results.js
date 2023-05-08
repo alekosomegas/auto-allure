@@ -4,7 +4,6 @@ import React from "react"
 
 export default function Results( props ) {
 
-
     let items
     if(props.carsResults.data !== undefined && props.carsResults.data !== null &&  props.carsResults.data.vehicles !== null && props.carsResults.data.vehicles !== undefined ) {
         items = props.carsResults.data.vehicles.map((car) => <CarListing car={car} days={props.carsResults.days} setSelectedCar={props.setSelectedCar} setStep={props.setStep} /> )
@@ -12,7 +11,6 @@ export default function Results( props ) {
 
     return (
         <>
-
             <Steps 
                 dates={props.dateRange}
                 step={props.step}
