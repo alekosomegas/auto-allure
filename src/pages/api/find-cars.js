@@ -4,8 +4,7 @@ async function getCars(start, end) {
   let headers = new Headers({
     "accept" : "application/json",
     "authorization" : process.env.REACT_APP_KEY,
-    "client_id": process.env.REACT_APP_CLIENT_ID,
-    "secret_id": process.env.REACT_APP_CLIENT_SECRET,
+
   }) 
 
   console.log(headers);

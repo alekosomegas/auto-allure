@@ -154,7 +154,7 @@ export default function Steps( props ) {
 
 
 
-        <div className="lg:hidden bg-highlight1 text-white w-full px-4 fixed z-50 top-10 h-9">
+        <div className="lg:hidden bg-highlight1 text-white w-full px-4 fixed z-50 top-10 h-9 ">
             <div className="flex flex-wrap justify-between align-bottom">
                 <span onClick={handleBackClicked} className="cursor-pointer mt-[0.75rem] text-xs">BACK</span>
                 <div className="flex flex-row gap-2">
@@ -172,7 +172,7 @@ export default function Steps( props ) {
         }
 
         {showSummary &&
-        <div className="bg-white">
+        <div className="bg-white drop-shadow-lg mb-6">
 
             <div className="mb-2 px-6">
                 <strong className="text-xs"> Pick-up location</strong>
@@ -201,7 +201,7 @@ export default function Steps( props ) {
                 }
             </div>
 
-            <div className="mb-2 px-6 pr-10">
+            <div className="mb-2 px-4 pr-10">
                 {
                 props.selectedCar &&    
                 <div className="flex flex-row justify-between">

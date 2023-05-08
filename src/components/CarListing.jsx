@@ -17,7 +17,7 @@ export default function CarListing( props ) {
     return (
         <div onClick={() => showCancelInfo && setShowCancelInfo(false)}>
             {showInfo &&
-                <div className="listing relative bg-white text-black h-full min-w-fit grid grid-cols-5 rounded-2xl overflow-hidden mb-6 p-3 gap-4">
+                <div className="listing relative bg-white text-black h-full min-h-[261px] min-w-fit grid grid-cols-5 rounded-2xl overflow-hidden mb-6 p-3 gap-4">
                     <div className="text-xs col-span-2">
                         <h6>Including</h6>
                         <ul className="list-outside pl-3 list-none -indent-3">
