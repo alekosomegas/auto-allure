@@ -9,15 +9,28 @@ export default function Extras(props) {
 
     function handleSubmitAddress(event) {
         event.preventDefault()
-        props.setStep(4)
-        props.setLocations((prev) => {
-            console.log(event);
+
+        if(props.locations.pick === "Other" || props.locations.drop === "Other") {
+            props.setLocations((prev) => {
+                return {
+                    ...prev,
+                    pick: event.target[0].value,
+                    drop: sameReturn ? event.target[0].value : event.target[5].value
+                }
+            })
+        }
+
+        props.setDelivery(prev => {
             return {
                 ...prev,
-                pick: event.target[0].value,
-                drop: sameReturn ? event.target[0].value : event.target[5].value
+                [title] : price
             }
         })
+
+    }
+
+    function handleNextStep() {
+        props.setStep(4)
         router.push("/review")
     }
 
@@ -43,6 +56,7 @@ export default function Extras(props) {
                 setLocations={props.setLocations}
                 extras={props.extras}
                 totalPrice={props.totalPrice}
+                delivery={props.delivery}
             />
             <div className="m-5 md:grid md:grid-cols-2 gap-4">
                 <div>
@@ -133,7 +147,7 @@ export default function Extras(props) {
             </div>
             }
             <div className="w-full flex justify-center">
-                <button onClick={handleSubmitAddress} className="m-5">Next Step</button>
+                <button onClick={handleNextStep} className=" ">Review and Book {" >>"}</button>
             </div>
         </div>
     )

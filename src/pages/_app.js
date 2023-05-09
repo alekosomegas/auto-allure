@@ -29,6 +29,12 @@ export default function App({ Component, pageProps }) {
     */
    })
 
+   const [delivery, setDelivery] = React.useState({
+      /*
+        [title] : price
+      */
+   })
+
   const [totalPrice, setTotalPrice] = React.useState()
 
 
@@ -37,8 +43,8 @@ export default function App({ Component, pageProps }) {
         (carsResults.days && selectedCar) ?
           selectedCar.price * carsResults.days 
           + Object.values(extras).reduce((total, item) => total + item, 0) * carsResults.days
+          + Object.values(delivery).reduce((total, item) => total + item, 0)
         : "")
-      console.log(totalPrice);
   })
   
 
@@ -61,6 +67,8 @@ export default function App({ Component, pageProps }) {
         extras={extras}
         setExtras={setExtras}
         totalPrice={totalPrice}
+        delivery={delivery}
+        setDelivery={setDelivery}
       />
     </>
     

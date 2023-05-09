@@ -15,13 +15,39 @@ function daysBetween(start, end) {
     return Math.round((end.getTime() - start.getTime()) / oneDay)
 }
 
+function airportDelivery(locations) {
+    let deliveries = {}
+    if(locations.pick === "Larnaka Airport") deliveries["LCA pick-up"] = 20
+    if(locations.drop === "Larnaka Airport") deliveries["LCA drop-off"] = 20
+    if(locations.pick === "Paphos Airport") deliveries["PFO pick-up"] = 20
+    if(locations.drop === "Paphos Airport") deliveries["PFO drop-off"] = 20
 
-export default function CarBook({ dateRange, setDateRange, setCarsResults, locations, setLocations }) {
+    console.log(deliveries);
+    return deliveries
+}
+
+export default function CarBook({ dateRange, setDateRange, setCarsResults, locations, setLocations, step, setDelivery }) {
     const router = useRouter();
 
     async function handleSubmit(event, dateRange) {
         event.preventDefault()
+
+        setDelivery(prev => {
+            return {
+                ...prev,
+                ...airportDelivery(locations)
+            }
+        })
         
+        if(step == 3) {
+            router.push("/extras")
+            return
+        }
+        if(step == 4) {
+            router.push("/review")
+            return
+        }
+
         fetch('api/find-cars', {
             method: "POST",
             body: JSON.stringify(dateRange)

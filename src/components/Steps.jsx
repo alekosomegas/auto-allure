@@ -13,11 +13,14 @@ export default function Steps( props ) {
     }
 
     function handleEdit2Clicked() {
-        props.setStep(prev => {
-                return prev-1
-        })
+        props.setStep(2)
         props.setSelectedCar(null)
         router.push("/results")
+    }
+
+    function handleEdit3Clicked() {
+        props.setStep(3)
+        router.push("/extras")
     }
 
     function handleBackClicked() {
@@ -25,6 +28,8 @@ export default function Steps( props ) {
             case 2: handleEdit1Clicked()
             break
             case 3: handleEdit2Clicked()
+            break
+            case 4: handleEdit3Clicked()
             break
         }
     }
@@ -38,12 +43,14 @@ export default function Steps( props ) {
 
 
     let extraItems
-    console.log(props.extras);
-    if (props.extras )  console.log(Object.keys(props.extras).length )
     if (props.extras && Object.keys(props.extras).length)  extraItems = Object.keys(props.extras).map(extra =>{
         if(props.extras[extra]) return <li>{extra}</li>
     })
-        
+    let deliveryItems
+    if (props.delivery && Object.keys(props.delivery).length)  deliveryItems = Object.keys(props.delivery).map(delivery =>{
+        if(props.delivery[delivery]) return <li>{delivery}</li>
+    })
+
     return (
         <>
         <div className="h-10 w-full fixed top-0 bg-dark flex justify-between pr-4 z-40 ">
@@ -75,20 +82,22 @@ export default function Steps( props ) {
                         <b className={`step-number ${props.step === 2 && "step-number-selected "} ${props.step > 2 && "step-number-done "}`}>2</b>
                         <div className="flex w-full justify-between ">
                             <span className="uppercase "> Car Choice</span>
-                            <span onClick={handleEdit2Clicked} className={`cursor-pointer underline ${props.step !== 3 && "hidden "}  decoration-highlight1`}> EDIT</span>
+                            <span onClick={handleEdit2Clicked} className={`cursor-pointer underline ${props.step < 2 && "hidden "}  decoration-highlight1`}> EDIT</span>
                         </div>
                     </div>
 
                     <div className="step3 flex gap-2 extraItems-center px-3">
-                    <b className={`step-number ${props.step === 3 && "step-number-selected "} ${props.step > 3 && "step-number-done "}`}>3</b>
-                        <span className="uppercase ">Choose Extras</span>
-                        <span className="hidden underline decoration-orange-500"> EDIT</span>
+                        <b className={`step-number ${props.step === 3 && "step-number-selected "} ${props.step > 3 && "step-number-done "}`}>3</b>
+                        <div className="flex w-full justify-between ">
+                            <span className="uppercase ">Choose Extras</span>
+                            <span onClick={handleEdit3Clicked} className={`${props.step < 4 && "hidden "} cursor-pointer underline decoration-highlight1`}> EDIT</span>
+                        </div>
                     </div>
 
                     <div className="step4 flex gap-2 extraItems-center px-3">
                     <b className={`step-number ${props.step === 4 && "step-number-selected "} ${props.step > 4 && "step-number-done "}`}>4</b>
                         <span className="uppercase "> Rental Total</span>
-                        <span className="hidden underline decoration-orange-500"> EDIT</span>
+
                     </div>
                 </div>
 
@@ -162,7 +171,7 @@ export default function Steps( props ) {
         </div>
 
 
-
+        {/* Vertical */}
         <div className="lg:hidden bg-highlight1 text-white w-full px-4 fixed z-50 top-10 h-9 ">
             <div className="flex flex-wrap justify-between align-bottom">
                 <span onClick={handleBackClicked} className="cursor-pointer mt-[0.75rem] text-xs">BACK</span>
@@ -175,13 +184,13 @@ export default function Steps( props ) {
         </div>
 
         {props.step > 2 &&
-            <div className="lg:hidden bg-white w-full z-50 top-20 h-9 pt-2 text-center">
-                <span className="text-center">Total: €{props.days * props.selectedCar.price}</span>
+            <div className="lg:hidden bg-highlight2 w-full z-50 top-20 h-9 pt-2 text-center">
+                <span className="text-center text-white font-bold font">Total: € {props.totalPrice}</span>
             </div>
         }
 
         {showSummary &&
-        <div className="bg-white drop-shadow-lg mb-6">
+        <div className="bg-white drop-shadow-lg mb-6 lg:hidden">
 
             <div className="mb-2 px-6">
                 <strong className="text-xs"> Pick-up location</strong>
@@ -210,7 +219,7 @@ export default function Steps( props ) {
                 }
             </div>
 
-            <div className="mb-2 px-4 pr-10">
+            <div className=" px-4 pr-10">
                 {
                 props.selectedCar &&    
                 <div className="flex flex-row justify-between">
@@ -228,6 +237,24 @@ export default function Steps( props ) {
                         alt="car"
                     /> 
                 </div>
+                }
+            </div>
+
+            <div className="-mt-4 px-4 pr-10">
+                {props.step > 2 &&
+                    <div >
+                        <strong className="text-xs">Extras</strong>
+                        <ul className="text-sm list-none pl-0">
+                            {...Object.keys(props.extras)
+                            .filter(key => props.extras[key])
+                            .map(item => <li>{item}</li>)}
+                            {...Object.keys(props.delivery)
+                            .filter(key => props.delivery[key])
+                            .map(item => <li>{item}</li>)
+                            }
+                        </ul>
+                    </div>
+
                 }
             </div>
 

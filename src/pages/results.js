@@ -6,7 +6,7 @@ export default function Results( props ) {
 
     let items
     if(props.carsResults.data !== undefined && props.carsResults.data !== null &&  props.carsResults.data.vehicles !== null && props.carsResults.data.vehicles !== undefined ) {
-        items = props.carsResults.data.vehicles.map((car) => <CarListing car={car} days={props.carsResults.days} setSelectedCar={props.setSelectedCar} setStep={props.setStep} /> )
+        items = props.carsResults.data.vehicles.map((car) => <CarListing car={car} days={props.carsResults.days} setSelectedCar={props.setSelectedCar} step={props.step} setStep={props.setStep} /> )
     }    
 
     return (
