@@ -17,6 +17,7 @@ export default function Review( props ) {
                 extras={props.extras}
                 totalPrice={props.totalPrice}
                 delivery={props.delivery}
+                showSummaryAtStart={true}
             />
 
             <form className="flex flex-col text-sm">

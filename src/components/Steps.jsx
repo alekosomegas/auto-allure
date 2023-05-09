@@ -6,7 +6,7 @@ import {useRouter} from "next/router"
 export default function Steps( props ) {
     const router = useRouter();
 
-    const [showSummary, setShowSummary] = React.useState(false)
+    const [showSummary, setShowSummary] = React.useState(props.showSummaryAtStart)
     
     function handleEdit1Clicked() {
         router.push("/")
@@ -227,32 +227,46 @@ export default function Steps( props ) {
                         <small className="text-xs">Group <strong>{props.selectedCar.group}</strong></small>
                         <h4 className="-mb-1">{props.selectedCar.brand} {props.selectedCar.mark}</h4>
                         <small className="text-xs">or similar model*</small>
+                        <div className="flex gap-2">
+                            <small>{(props.selectedCar.price * props.days).toLocaleString(undefined, { style: 'currency', currency: 'EUR' })}</small>
+                            <small className="text-xs pt-0.5">({props.selectedCar.price} x {props.days})</small>
+                        </div>
                     </div>
-
-                    <Image 
-                        className=""
-                        src={props.selectedCar.thumbnail} 
-                        width={120}
-                        height={80}
-                        alt="car"
-                    /> 
+                    <div className="-mt-2 mb-2">
+                        <Image 
+                            src={props.selectedCar.thumbnail} 
+                            width={120}
+                            height={80}
+                            alt="car"
+                        /> 
+                    </div>
                 </div>
                 }
             </div>
 
-            <div className="-mt-4 px-4 pr-10">
+            <div className=" px-4 pr-10">
                 {props.step > 2 &&
                     <div >
                         <strong className="text-xs">Extras</strong>
+                        {props.extras &&
                         <ul className="text-sm list-none pl-0">
                             {...Object.keys(props.extras)
                             .filter(key => props.extras[key])
-                            .map(item => <li>{item}</li>)}
+                            .map(item => 
+                                <div className="flex justify-between">
+                                    <li >{item}</li>
+                                    <small>{props.extras[item].toLocaleString(undefined, { style: 'currency', currency: 'EUR' })} x {props.days}</small>
+                                </div>)}
                             {...Object.keys(props.delivery)
                             .filter(key => props.delivery[key])
-                            .map(item => <li>{item}</li>)
+                            .map(item =>
+                                <div className="flex justify-between">
+                                    <li>{item}</li>
+                                    <small>{props.delivery[item].toLocaleString(undefined, { style: 'currency', currency: 'EUR' })}</small>
+                                </div> )
                             }
                         </ul>
+                        }
                     </div>
 
                 }
