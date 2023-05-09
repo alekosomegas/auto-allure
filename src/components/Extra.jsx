@@ -26,7 +26,7 @@ export default function Extra( props ) {
                     <span> / day</span>
                 </div>
                 
-                <button className="h-10">Add</button>
+                <button onClick={() => props.handleAddExtra(props.title, props.price)} className="h-10">{props.extras[props.title] ? "X" : "Add"}</button>
             </div>
         </div>
     )

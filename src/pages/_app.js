@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/styles/globals.css'
 
@@ -22,6 +22,27 @@ export default function App({ Component, pageProps }) {
   const [selectedCar, setSelectedCar] = React.useState(false)
 
   const [step, setStep] = React.useState(2)
+
+  const [extras, setExtras] = React.useState({
+    /*
+      [title] : price
+    */
+   })
+
+  const [totalPrice, setTotalPrice] = React.useState()
+
+
+  useEffect(() => {
+      setTotalPrice(    
+        (carsResults.days && selectedCar) ?
+          selectedCar.price * carsResults.days 
+          + Object.values(extras).reduce((total, item) => total + item, 0) * carsResults.days
+        : "")
+      console.log(totalPrice);
+  })
+  
+
+
   return (
     <>
 
@@ -37,6 +58,9 @@ export default function App({ Component, pageProps }) {
         setLocations={setLocations}
         step={step}
         setStep={setStep}
+        extras={extras}
+        setExtras={setExtras}
+        totalPrice={totalPrice}
       />
     </>
     

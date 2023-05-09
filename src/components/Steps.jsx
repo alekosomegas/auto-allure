@@ -33,9 +33,17 @@ export default function Steps( props ) {
         1: "Location Selection",
         2: "Car Choice",
         3: "Choose Extras",
-        4: "Rental Total"
+        4: "Review & Book"
     }
 
+
+    let extraItems
+    console.log(props.extras);
+    if (props.extras )  console.log(Object.keys(props.extras).length )
+    if (props.extras && Object.keys(props.extras).length)  extraItems = Object.keys(props.extras).map(extra =>{
+        if(props.extras[extra]) return <li>{extra}</li>
+    })
+        
     return (
         <>
         <div className="h-10 w-full fixed top-0 bg-dark flex justify-between pr-4 z-40 ">
@@ -55,7 +63,7 @@ export default function Steps( props ) {
 
                 <div className="steps-top grid grid-cols-4 mb-3 pt-4">
 
-                    <div className="step1 flex gap-2 items-center px-3">
+                    <div className="step1 flex gap-2 extraItems-center px-3">
                         <b className={`step-number ${props.step === 1 && "step-number-selected "} ${props.step > 1 && "step-number-done "}`}>1</b>
                         <div className="flex w-full justify-between ">
                             <span className="uppercase "> Location Selection</span>
@@ -63,7 +71,7 @@ export default function Steps( props ) {
                         </div>
                     </div>
 
-                    <div className="step2 flex gap-2 items-center px-3">
+                    <div className="step2 flex gap-2 extraItems-center px-3">
                         <b className={`step-number ${props.step === 2 && "step-number-selected "} ${props.step > 2 && "step-number-done "}`}>2</b>
                         <div className="flex w-full justify-between ">
                             <span className="uppercase "> Car Choice</span>
@@ -71,13 +79,13 @@ export default function Steps( props ) {
                         </div>
                     </div>
 
-                    <div className="step3 flex gap-2 items-center px-3">
+                    <div className="step3 flex gap-2 extraItems-center px-3">
                     <b className={`step-number ${props.step === 3 && "step-number-selected "} ${props.step > 3 && "step-number-done "}`}>3</b>
                         <span className="uppercase ">Choose Extras</span>
                         <span className="hidden underline decoration-orange-500"> EDIT</span>
                     </div>
 
-                    <div className="step4 flex gap-2 items-center px-3">
+                    <div className="step4 flex gap-2 extraItems-center px-3">
                     <b className={`step-number ${props.step === 4 && "step-number-selected "} ${props.step > 4 && "step-number-done "}`}>4</b>
                         <span className="uppercase "> Rental Total</span>
                         <span className="hidden underline decoration-orange-500"> EDIT</span>
@@ -136,12 +144,13 @@ export default function Steps( props ) {
                         }
                     </div>
 
-                    <div className={`step2 step ${props.step >= 3 && "step-selected"}`}>
-
+                    <div className={`step3 step ${props.step >= 3 && "step-selected"}`}>
+                        <span></span>
+                        <span>{extraItems}</span>
                     </div>
 
-                    <div className={`step2 step ${props.step >= 4 && "step-selected"}`}>
-
+                    <div className={`step4 step ${props.step >= 4 && "step-selected"}`}>
+                        <span>{props.totalPrice}</span>
                     </div>
 
                 </div>
