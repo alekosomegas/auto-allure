@@ -5,27 +5,30 @@ import {useRouter} from "next/router"
 
 export default function Extras(props) {
     const [sameReturn, setSameReturn] = React.useState(true)
+    const [showForm, setShowForm] = React.useState((props.locations.pick === "Other" || props.locations.drop === "Other"))
+    const [tempLocationPick, setTempLocationPick] = React.useState(props.locations.pick)
+    const [tempLocationDrop, setTempLocationDrop] = React.useState(props.locations.drop)
+
     const router = useRouter();
 
     function handleSubmitAddress(event) {
         event.preventDefault()
 
-        if(props.locations.pick === "Other" || props.locations.drop === "Other") {
-            props.setLocations((prev) => {
-                return {
-                    ...prev,
-                    pick: event.target[0].value,
-                    drop: sameReturn ? event.target[0].value : event.target[5].value
-                }
-            })
-        }
-
-        props.setDelivery(prev => {
+        props.setLocations(prev => {
             return {
                 ...prev,
-                [title] : price
+                pick: tempLocationPick,
+                drop: tempLocationDrop
             }
         })
+
+
+        // props.setDelivery(prev => {
+        //     return {
+        //         ...prev,
+        //         [title] : price
+        //     }
+        // })
 
     }
 
@@ -90,59 +93,103 @@ export default function Extras(props) {
                     />
                 </div>
             </div>
-            {(props.locations.pick === "Other" || props.locations.drop === "Other") &&
+
+            {
             <div>
-                <form onSubmit={handleSubmitAddress} className="bg-white rounded-lg m-5 p-4 grid grid-cols-2 gap-4 max-md:flex max-md:flex-col">
-                    <h4 className="col-span-2 text-center mb-2">Pick-up/Drop-off at a different location</h4>
-                    
-                    <div className="flex flex-col text-sm">
-                        <strong className="mb-2">Pick-up Location</strong>
-                        <label for="address">Address</label>
-                        <input id="address" required type="text"></input>
-                        <label>City</label>
-                        <select>
-                            <option>Limassol</option>
-                            <option>Nicosia</option>
-                            <option>Larnaca</option>
-                            <option>Paphos</option>
-                            <option>Famagusta</option>
-                        </select>
-                        <label for="postal">Postal Code</label>
-                        <input id="postal" required type="text"></input>
-                        <label for="notes">Notes</label>
-                        <textarea id="notes" type="text"></textarea>
+                <form onSubmit={handleSubmitAddress} className="bg-white rounded-lg m-5 p-4 max-md:flex max-md:flex-col">
+                    <div className="col-span-2  mb-4 flex justify-between">
+                        <div className="flex flex-col">
+                            <h4>Deliver & Collect</h4>
+                            <h6>Pick-up / Drop-off your vehicle from an address of your choice</h6>
+                        </div>
+                        <button onClick={(e) => {e.preventDefault(); setShowForm(!showForm)}} className="h-10">{showForm ? "^" : "v"}</button>
                     </div>
 
-                    <div className="flex flex-col text-sm">
-
-                        <div className="text-sm flex justify-between">
-                            <strong className="mb-2">Drop-off Location</strong>
-                            <div className="flex justify-end">
-                                <label for="same">Same as Pick-up</label>
-                                <input className="h-fit ml-2" onChange={() => setSameReturn(!sameReturn)} type="checkbox" id="same" checked={sameReturn} />
-                            </div>
-                        </div>
-                        {!sameReturn &&
+                    {showForm && 
+                    <div className=" grid grid-cols-2 gap-4 ">
                         <div className="flex flex-col text-sm">
-                            <label for="address">Address</label>
-                            <input id="address" required type="text"></input>
-                            <label>City</label>
-                            <select>
-                                <option>Limassol</option>
-                                <option>Nicosia</option>
-                                <option>Larnaca</option>
-                                <option>Paphos</option>
-                                <option>Famagusta</option>
-                            </select>
-                            <label for="postal">Postal Code</label>
-                            <input id="postal" required type="text"></input>
-                            <label for="notes">Notes</label>
-                            <textarea id="notes" type="text"></textarea>
+                            <div className="flex justify-between">
+                                <strong className="mb-2">Pick-up Location</strong>
+                                <select id="location-pick" type="text" defaultValue={props.locations.pick} onChange={(event) => {setTempLocationPick(event.target.value)}}>
+                                    <option value="Limassol Office">LIMASSOL OFFICE</option>  
+                                    <option value="Larnaka Airport">LARNACA AIRPORT</option>
+                                    <option value="Paphos Airport">PAPHOS AIRPORT</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            
+                            {
+                            (tempLocationPick === "Other") &&
+                            <div className="flex flex-col">
+                                <label for="address">Address</label>
+                                <input id="address" required type="text"></input>
+                                <label>City</label>
+                                <select>
+                                    <option>Limassol</option>
+                                    <option>Nicosia</option>
+                                    <option>Larnaca</option>
+                                    <option>Paphos</option>
+                                    <option>Famagusta</option>
+                                </select>
+                                <label for="postal">Postal Code</label>
+                                <input id="postal" required type="text"></input>
+                                <label for="notes">Notes</label>
+                                <textarea id="notes" type="text"></textarea>
+                            </div>
+                            }
                         </div>
-                        }
+
+                        <div className="flex flex-col text-sm">  
+                            <div className="text-sm flex justify-between">
+                                <div className="flex flex-col">
+                                    <strong className="mb-2">Drop-off Location</strong>
+                                    {tempLocationPick === "Other" && tempLocationDrop === "Other" &&
+                                        <div>
+                                            <label for="same">Same as Pick-up</label>
+                                            <input className="h-fit ml-2" onChange={() => setSameReturn(!sameReturn)} type="checkbox" id="same" checked={sameReturn} />
+                                        </div>
+                                    }
+                                </div>
+                                <select type="text" defaultValue={props.locations.drop} className="" onChange={event => setTempLocationDrop(event.target.value)}>
+                                    <option value="Limassol Office">LIMASSOL OFFICE</option>  
+                                    <option value="Larnaka Airport">LARNACA AIRPORT</option>
+                                    <option value="Paphos Airport">PAPHOS AIRPORT</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+
+                            {!sameReturn && tempLocationDrop === "Other" &&
+                                <div className="flex flex-col text-sm">
+                                <label for="address">Address</label>
+                                <input id="address" required type="text"></input>
+                                <label>City</label>
+                                <select>
+                                    <option>Limassol</option>
+                                    <option>Nicosia</option>
+                                    <option>Larnaca</option>
+                                    <option>Paphos</option>
+                                    <option>Famagusta</option>
+                                </select>
+                                <label for="postal">Postal Code</label>
+                                <input id="postal" required type="text"></input>
+                                <label for="notes">Notes</label>
+                                <textarea id="notes" type="text"></textarea>
+                                </div>
+                            }
+
+                        </div>
+                        <span><strong>€ 20 </strong><small className="text-xs">extra</small></span>
+                        <button className={`col-span-2 
+                            ${(tempLocationPick !== props.locations.pick || tempLocationDrop !== props.locations.drop) ?
+                                "" :
+                                "hidden"
+                            }
+                            `}>Sumbit</button>
+                        
                     </div>
-                    <span><strong>€ 20 </strong><small className="text-xs">extra</small></span>
-                    <button className="col-span-2">Sumbit</button>
+                    }
                 </form>
             </div>
             }

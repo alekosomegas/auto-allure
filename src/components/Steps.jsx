@@ -44,12 +44,24 @@ export default function Steps( props ) {
 
     let extraItems
     if (props.extras && Object.keys(props.extras).length)  extraItems = Object.keys(props.extras).map(extra =>{
-        if(props.extras[extra]) return <li>{extra}</li>
-    })
+        if(props.extras[extra]) {
+            return (
+            <div className="flex justify-between">
+                <li>{extra}</li>
+                <small>{props.days} x {props.extras[extra].toLocaleString(undefined, { style: 'currency', currency: 'EUR' })}</small>
+            </div>
+            )}})
+
     let deliveryItems
     if (props.delivery && Object.keys(props.delivery).length)  deliveryItems = Object.keys(props.delivery).map(delivery =>{
-        if(props.delivery[delivery]) return <li>{delivery}</li>
-    })
+        if(props.delivery[delivery]) {
+            return (
+            <div className="flex justify-between">
+                <li>{delivery}</li>
+                <small>{props.delivery[delivery].toLocaleString(undefined, { style: 'currency', currency: 'EUR' })}</small>
+            </div>
+            )}})
+
 
     return (
         <>
@@ -156,6 +168,7 @@ export default function Steps( props ) {
                     <div className={`step3 step ${props.step >= 3 && "step-selected"}`}>
                         <span></span>
                         <span>{extraItems}</span>
+                        <spam>{deliveryItems}</spam>
                     </div>
 
                     <div className={`step4 step ${props.step >= 4 && "step-selected"}`}>
