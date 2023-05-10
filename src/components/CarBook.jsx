@@ -17,12 +17,11 @@ function daysBetween(start, end) {
 
 function airportDelivery(locations) {
     let deliveries = {}
-    if(locations.pick === "Larnaka Airport") deliveries["LCA pick-up"] = 20
-    if(locations.drop === "Larnaka Airport") deliveries["LCA drop-off"] = 20
-    if(locations.pick === "Paphos Airport") deliveries["PFO pick-up"] = 20
-    if(locations.drop === "Paphos Airport") deliveries["PFO drop-off"] = 20
+    if(locations.pick === "Larnaka Airport") deliveries["LCA pick-up"] = 70
+    if(locations.drop === "Larnaka Airport") deliveries["LCA drop-off"] = 70
+    if(locations.pick === "Paphos Airport") deliveries["PFO pick-up"] = 70
+    if(locations.drop === "Paphos Airport") deliveries["PFO drop-off"] = 70
 
-    console.log(deliveries);
     return deliveries
 }
 
