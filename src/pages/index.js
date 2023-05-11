@@ -50,7 +50,7 @@ export default function Home({ dateRange, setDateRange, carsResults, setCarsResu
         <p>Welcome to <strong>Allure Luxury Car Rentals</strong>, the best choice for <strong>car rental in Limassol. </strong>
         We offer a wide range of vehicles, from <strong>economy</strong> to <strong>luxury</strong>, to suit your needs and budget.
         <br/><br/>
-        We are based in Leoforos Amathous 32, Limassol but we also offer <strong>free pick up and drop off</strong> at any address in the city. You can also pick up or drop off your car at other locations in Cyprus, including airports, for a small fee.
+        We are based in Leoforos Amathous 32, Limassol but we also offer <strong>delivery and collectionf</strong>at other locations in Cyprus, including airports, for a small fee.
         We have no hidden charges, and we guarantee the best price for your car rental in Limassol.
 
         You can book your car online easily and securely through our website, or you can contact us by phone or email if you have any questions or special requests. We are available 24/7 to assist you with your car rental needs.

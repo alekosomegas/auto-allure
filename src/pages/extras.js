@@ -2,14 +2,32 @@ import React from "react";
 import Steps from "@/components/Steps";
 import Extra from "@/components/Extra";
 import {useRouter} from "next/router"
+import * as utils from '@/utils';
 
 export default function Extras(props) {
-    const [sameReturn, setSameReturn] = React.useState(true)
+    const [sameReturn, setSameReturn] = React.useState(false)
     const [showForm, setShowForm] = React.useState((props.locations.pick === "Other" || props.locations.drop === "Other"))
     const [tempLocationPick, setTempLocationPick] = React.useState(props.locations.pick)
     const [tempLocationDrop, setTempLocationDrop] = React.useState(props.locations.drop)
+    const [tempPickCity, setTempPickCity] = React.useState("Limassol")
+    const [tempDropCity, setTempDropCity] = React.useState("Limassol")
+    const [tempPickCharge, setTempPickCharge] = React.useState()
+    const [tempDropCharge, setTempDropCharge] = React.useState()
+    const [submitted, setSubmitted] = React.useState(false)
 
     const router = useRouter();
+
+    React.useEffect(() => {
+        if (sameReturn) {setTempDropCity(tempPickCity)}
+    }, [tempPickCity])
+
+    let tempLocations = {pick: tempLocationPick , drop: tempLocationDrop}
+    React.useEffect(() => {
+        tempLocations = {pick: tempLocationPick , drop: tempLocationDrop}
+        setTempPickCharge((utils.airportDelivery(tempLocations, tempPickCity, tempDropCity)["Pick-up charge"]))
+        setTempDropCharge((utils.airportDelivery(tempLocations, tempPickCity, tempDropCity)["Drop-off charge"]))
+    }, [tempLocationPick, tempLocationDrop, tempPickCity, tempDropCity])
+
 
     function handleSubmitAddress(event) {
         event.preventDefault()
@@ -22,26 +40,42 @@ export default function Extras(props) {
             }
         })
 
+        props.setDelivery(prev => {
+            return {
+                ...utils.airportDelivery(tempLocations, tempPickCity, tempDropCity)
+            }
+        })
 
-        // props.setDelivery(prev => {
-        //     return {
-        //         ...prev,
-        //         [title] : price
-        //     }
-        // })
-
+        setSubmitted(!submitted)
     }
 
     function handleNextStep() {
+        if(props.locations.pick === "Other" || props.locations.drop === "Other") {
+            if(!submitted) {
+                alert("Please fill in address")
+                return
+            }
+        }
         props.setStep(4)
         router.push("/review")
     }
 
-    function handleAddExtra(title, price) {
+    React.useEffect(() => {
+        Object.keys(props.extras).map(key => {
+            props.setExtras(prev => {
+                return {
+                    ...prev,
+                    [key] : utils.extrasPrice(key,props.carsResults.days)
+                }
+            })
+        })}
+    , [props.carsResults.days])
+
+    function handleAddExtra(title) {
         props.setExtras(prev => {
             return {
                 ...prev,
-                [title] : prev[title] ? false : price //!prev[title]
+                [title] : prev[title] ? false : utils.extrasPrice(title, props.carsResults.days) //!prev[title]
             } 
         })
     }
@@ -65,7 +99,7 @@ export default function Extras(props) {
                 <div>
                     <Extra
                         title={"Additional Driver"}
-                        price={5}
+                        days={props.carsResults.days}
                         icon={"/icons/icon-add-driver.png"}
                         info={"Allow anyone in the group to drive the rented car and give yourself the opportunity to enjoy the journey from the passenger’s seat."}
                         handleAddExtra={handleAddExtra}
@@ -74,8 +108,18 @@ export default function Extras(props) {
                 </div>
                 <div>
                     <Extra
+                        title={"Infant Seat"}
+                        days={props.carsResults.days}
+                        icon={"/icons/infant.png"}
+                        info={"Group 0+/1: Ideal for children weighing between 0 - 18 kg."}
+                        handleAddExtra={handleAddExtra}
+                        extras={props.extras}
+                    />
+                </div>
+                <div>
+                    <Extra
                         title={"Child Seat"}
-                        price={5}
+                        days={props.carsResults.days}
                         icon={"/icons/baby.png"}
                         info={"Group 0+/1: Ideal for children weighing between 0 - 18 kg."}
                         handleAddExtra={handleAddExtra}
@@ -84,10 +128,10 @@ export default function Extras(props) {
                 </div>
                 <div>
                     <Extra
-                        title={"Additional coverage (SCDW)"}
-                        price={15}
-                        icon={"/icons/file.png"}
-                        info={"RSeduce your liability to a minimum charge, according to the car group you have picked, by paying an additional small fee in the price of collision damage waiver."}
+                        title={"Booster Seat"}
+                        days={props.carsResults.days}
+                        icon={"/icons/baby.png"}
+                        info={"Booster seat (group 2-3): Ideal for children weighing between 15-36kg."}
                         handleAddExtra={handleAddExtra}
                         extras={props.extras}
                     />
@@ -96,7 +140,7 @@ export default function Extras(props) {
 
             {
             <div>
-                <form onSubmit={handleSubmitAddress} className="bg-white rounded-lg m-5 p-4 max-md:flex max-md:flex-col">
+                <form onChange={() => {setSubmitted(false)}} onSubmit={handleSubmitAddress} className="bg-white rounded-lg m-5 p-4 max-md:flex max-md:flex-col">
                     <div className="col-span-2  mb-4 flex justify-between">
                         <div className="flex flex-col">
                             <h4>Deliver & Collect</h4>
@@ -106,7 +150,9 @@ export default function Extras(props) {
                     </div>
 
                     {showForm && 
-                    <div className=" grid grid-cols-2 gap-4 ">
+                    <>
+                    <div className=" grid grid-cols-2 gap-4  max-md:flex max-md:flex-col">
+                    <fieldset className="col-span-2 grid grid-cols-2 gap-4 max-md:flex max-md:flex-col" disabled={submitted ? true : false}>
                         <div className="flex flex-col text-sm">
                             <div className="flex justify-between">
                                 <strong className="mb-2">Pick-up Location</strong>
@@ -117,7 +163,6 @@ export default function Extras(props) {
                                     <option value="Other">Other</option>
                                 </select>
                             </div>
-
                             
                             {
                             (tempLocationPick === "Other") &&
@@ -125,7 +170,7 @@ export default function Extras(props) {
                                 <label for="address">Address</label>
                                 <input id="address" required type="text"></input>
                                 <label>City</label>
-                                <select>
+                                <select defaultValue={tempDropCity} onChange={event => {setTempPickCity(event.target.value)}}>
                                     <option>Limassol</option>
                                     <option>Nicosia</option>
                                     <option>Larnaca</option>
@@ -136,6 +181,7 @@ export default function Extras(props) {
                                 <input id="postal" required type="text"></input>
                                 <label for="notes">Notes</label>
                                 <textarea id="notes" type="text"></textarea>
+                                <span className="mt-4 mb-6"><strong>{utils.toCurrency(tempPickCharge)}</strong><small className="text-xs">{tempPickCharge !== 0 && " charge"}</small></span>
                             </div>
                             }
                         </div>
@@ -165,7 +211,7 @@ export default function Extras(props) {
                                 <label for="address">Address</label>
                                 <input id="address" required type="text"></input>
                                 <label>City</label>
-                                <select>
+                                <select defaultValue={tempDropCity} onChange={event => {setTempDropCity(event.target.value)}}>
                                     <option>Limassol</option>
                                     <option>Nicosia</option>
                                     <option>Larnaca</option>
@@ -176,25 +222,27 @@ export default function Extras(props) {
                                 <input id="postal" required type="text"></input>
                                 <label for="notes">Notes</label>
                                 <textarea id="notes" type="text"></textarea>
+                                <span className="mt-4 mb-6" ><strong>{utils.toCurrency(tempDropCharge)}</strong><small className="text-xs">{tempDropCharge !== 0 && " charge"}</small></span>
                                 </div>
                             }
 
                         </div>
-                        <span><strong>€ 20 </strong><small className="text-xs">extra</small></span>
+                        </fieldset>
                         <button className={`col-span-2 
-                            ${(tempLocationPick !== props.locations.pick || tempLocationDrop !== props.locations.drop) ?
+                            ${(tempLocationPick !== props.locations.pick || tempLocationDrop !== props.locations.drop || tempLocationPick === "Other" || tempLocationDrop === "Other") ?
                                 "" :
-                                "hidden"
+                                ""
                             }
-                            `}>Sumbit</button>
+                            `}>{submitted ? "Edit" : "Submit"}</button>
                         
                     </div>
+                    </>
                     }
                 </form>
             </div>
             }
             <div className="w-full flex justify-center">
-                <button onClick={handleNextStep} className=" ">Review and Book {" >>"}</button>
+                <button onClick={handleNextStep} className="mb-10 max-md:w-full mx-5">Review and Book {" >>"}</button>
             </div>
         </div>
     )

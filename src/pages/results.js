@@ -22,6 +22,10 @@ export default function Results( props ) {
                 setLocations={props.setLocations}
             />
 
+            <div className="filter h-11">
+               
+            </div>
+
             <div className="cars grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-10">
                 {items}
             </div>

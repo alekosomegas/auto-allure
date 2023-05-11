@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import * as utils from '@/utils';
 
 export default function Extra( props ) {
     return (
@@ -22,11 +23,11 @@ export default function Extra( props ) {
 
             <div className="flex max-lg:flex-col">
                 <div className="text-center mx-4">
-                    <strong>€ {props.price}</strong> 
-                    <span> / day</span>
+                    <strong>{utils.toCurrency(utils.extrasPrice(props.title,props.days))}</strong> 
+                    <span className="text-xs"> / day</span>
                 </div>
                 
-                <button onClick={() => props.handleAddExtra(props.title, props.price)} className="h-10">{props.extras[props.title] ? "X" : "Add"}</button>
+                <button onClick={() => props.handleAddExtra(props.title)} className="h-10">{props.extras[props.title] ? "X" : "Add"}</button>
             </div>
         </div>
     )

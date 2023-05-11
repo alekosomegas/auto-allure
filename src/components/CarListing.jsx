@@ -116,7 +116,7 @@ export default function CarListing( props ) {
                     {showCancelInfo &&
 
                         <div className="absolute z-2 bg-highlight1 text-white bottom-10 left-11 w-32 text-center rounded-lg p-2">
-                            <p>You can cancel your reservation free of charge.</p>
+                            <p>You have the option to cancel your reservation without any charges if you do so at least 2 days prior to the booking date.</p>
                         </div>
                     }
 

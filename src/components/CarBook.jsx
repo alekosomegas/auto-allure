@@ -2,6 +2,7 @@ import React from 'react'
 import Flatpickr from 'react-flatpickr';
 import "flatpickr/dist/themes/dark.css";
 import {useRouter} from "next/router"
+import * as utils from '@/utils';
 
 function datesPicked(start, end) {
     if(start === undefined || end === undefined)  return false
@@ -15,16 +16,6 @@ function daysBetween(start, end) {
     return Math.round((end.getTime() - start.getTime()) / oneDay)
 }
 
-function airportDelivery(locations) {
-    let deliveries = {}
-    if(locations.pick === "Larnaka Airport") deliveries["LCA pick-up"] = 70
-    if(locations.drop === "Larnaka Airport") deliveries["LCA drop-off"] = 70
-    if(locations.pick === "Paphos Airport") deliveries["PFO pick-up"] = 70
-    if(locations.drop === "Paphos Airport") deliveries["PFO drop-off"] = 70
-
-    return deliveries
-}
-
 export default function CarBook({ dateRange, setDateRange, setCarsResults, locations, setLocations, step, setDelivery }) {
     const router = useRouter();
 
@@ -33,8 +24,14 @@ export default function CarBook({ dateRange, setDateRange, setCarsResults, locat
 
         setDelivery(prev => {
             return {
+                ...utils.airportDelivery(locations)
+            }
+        })
+
+        setCarsResults(prev => {
+            return {
                 ...prev,
-                ...airportDelivery(locations)
+                days : daysBetween(dateRange.startDate, dateRange.endDate)
             }
         })
         

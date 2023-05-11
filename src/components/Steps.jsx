@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "./Logo";
 import Image from "next/image";
 import {useRouter} from "next/router"
+import * as utils from "@/utils"
 
 export default function Steps( props ) {
     const router = useRouter();
@@ -46,7 +47,7 @@ export default function Steps( props ) {
     if (props.extras && Object.keys(props.extras).length)  extraItems = Object.keys(props.extras).map(extra =>{
         if(props.extras[extra]) {
             return (
-            <div className="flex justify-between">
+            <div className="flex justify-between list-none">
                 <li>{extra}</li>
                 <small>{props.days} x {props.extras[extra].toLocaleString(undefined, { style: 'currency', currency: 'EUR' })}</small>
             </div>
@@ -56,7 +57,7 @@ export default function Steps( props ) {
     if (props.delivery && Object.keys(props.delivery).length)  deliveryItems = Object.keys(props.delivery).map(delivery =>{
         if(props.delivery[delivery]) {
             return (
-            <div className="flex justify-between">
+            <div className="flex justify-between list-none">
                 <li>{delivery}</li>
                 <small>{props.delivery[delivery].toLocaleString(undefined, { style: 'currency', currency: 'EUR' })}</small>
             </div>
@@ -172,7 +173,7 @@ export default function Steps( props ) {
                     </div>
 
                     <div className={`step4 step ${props.step >= 4 && "step-selected"}`}>
-                        <span>{props.totalPrice}</span>
+                        <span className={props.totalPrice && `bg-highlight2 rounded-md px-3 py-2 font-bold text-white text-lg`}>{utils.toCurrency(props.totalPrice)}</span>
                     </div>
 
                 </div>
