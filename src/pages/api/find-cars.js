@@ -1,13 +1,12 @@
-
+//TODO: check dates,not sure if all cars are available
 async function getCars(start, end) {
-  let url = "https://api.rentsyst.com/v1/booking/search?pickup_location=2907&return_location=2907&dates=" + start + "%2010%3A00%20-%20" +end+ "%2010%3A00"
+  let url = "https://api.rentsyst.com/v1/booking/search?pickup_location=2907&return_location=2907&dates=" + start + " - " +end+ "&per_page=20"
   let headers = new Headers({
     "accept" : "application/json",
-    "authorization" : process.env.REACT_APP_KEY,
+    "authorization" : "Bearer " + process.env.REACT_APP_KEY,
 
   }) 
 
-  console.log(headers);
   let request = new Request(url, {
     method: "GET",
     headers: headers

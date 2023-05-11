@@ -12,7 +12,7 @@ export default function Home({ dateRange, setDateRange, carsResults, setCarsResu
   return (
     <main>
       <Navbar />
-
+      <iframe  className='w-full h-[900px]' src="https://rentsyst.com/settings/iframe-constructor/?token=bJ6LkkUGpV4Pq8gzkcXsvnK020Mr7XpH&id=4239"></iframe>
       <div className='text-white main-container flex justify-stretch overflow-hidden '>  
 
         <div className='short grid gap-4 items-center justify-center w-3/5 hover:w-4/6 hover:scale-100 ease-in-out duration-300 max-sm:grow min-w-fit'>

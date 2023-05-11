@@ -169,7 +169,7 @@ export default function Steps( props ) {
                     <div className={`step3 step ${props.step >= 3 && "step-selected"}`}>
                         <span></span>
                         <span>{extraItems}</span>
-                        <spam>{deliveryItems}</spam>
+                        <span>{deliveryItems}</span>
                     </div>
 
                     <div className={`step4 step ${props.step >= 4 && "step-selected"}`}>

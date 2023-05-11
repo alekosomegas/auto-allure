@@ -1,12 +1,21 @@
 import Steps from "@/components/Steps"
 import CarListing from "@/components/CarListing"
 import React from "react"
+import { nanoid } from 'nanoid'
 
 export default function Results( props ) {
 
     let items
     if(props.carsResults.data !== undefined && props.carsResults.data !== null &&  props.carsResults.data.vehicles !== null && props.carsResults.data.vehicles !== undefined ) {
-        items = props.carsResults.data.vehicles.map((car) => <CarListing car={car} days={props.carsResults.days} setSelectedCar={props.setSelectedCar} step={props.step} setStep={props.setStep} /> )
+        items = props.carsResults.data.vehicles.map((car) => 
+            <CarListing 
+                key={nanoid()}
+                car={car} 
+                days={props.carsResults.days} 
+                setSelectedCar={props.setSelectedCar} 
+                step={props.step} 
+                setStep={props.setStep} 
+            /> )
     }    
 
     return (
