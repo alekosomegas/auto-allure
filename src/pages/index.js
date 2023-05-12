@@ -1,31 +1,30 @@
 import React from 'react'
-import { Inter } from 'next/font/google'
 import CarBook from '@/components/CarBook'
 import LongTermBook from '@/components/LongTermBook'
 import Navbar from '@/components/Navbar'
 
-const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({ dateRange, setDateRange, carsResults, setCarsResults, locations, setLocations, step, setDelivery}) {
+export default function Home(props) {
   const [show, setShow] = React.useState(false)
+  const [showBookCar, setShowBookCar] = React.useState(false)
 
   return (
     <main>
       <Navbar />
-      <iframe  className='w-full h-[900px]' src="https://rentsyst.com/settings/iframe-constructor/?token=bJ6LkkUGpV4Pq8gzkcXsvnK020Mr7XpH&id=4239"></iframe>
+
+      {showBookCar &&
+        <iframe  className='w-full h-[900px]' src="https://rentsyst.com/settings/iframe-constructor/?token=bJ6LkkUGpV4Pq8gzkcXsvnK020Mr7XpH&id=4239"></iframe>
+      }
+
+      {!showBookCar &&
+      <>
       <div className='text-white main-container flex justify-stretch overflow-hidden '>  
 
         <div className='short grid gap-4 items-center justify-center w-3/5 hover:w-4/6 hover:scale-100 ease-in-out duration-300 max-sm:grow min-w-fit'>
-          <div className=''>
+          <div className='flex flex-col'>
             <CarBook 
-            dateRange={dateRange}
-            setDateRange={setDateRange}
-            carsResults={carsResults}
-            setCarsResults={setCarsResults}
-            locations={locations}
-            setLocations={setLocations}
-            step={step}
-            setDelivery={setDelivery}
+            showBookCar={showBookCar}
+            setShowBookCar={setShowBookCar}
             />
           </div>
         </div>
@@ -38,14 +37,13 @@ export default function Home({ dateRange, setDateRange, carsResults, setCarsResu
             show={show}
             setShow={setShow} />
           </div>
-
         </div>
-        
       </div>
-
+      </>
+      }
       <section  id="about-us" className='h-[40px]'></section>
       <div id="aboutUs" className='text-center mt-5 mx-6 lg:mx-72 text-black'>
-        <h1><strong>Auto Allure</strong> <br/><small>Car Rentals Limassol</small></h1>
+        <h1><strong>Allure</strong> <br/><small>Car Rentals Limassol</small></h1>
         <br/>
         <p>Welcome to <strong>Allure Luxury Car Rentals</strong>, the best choice for <strong>car rental in Limassol. </strong>
         We offer a wide range of vehicles, from <strong>economy</strong> to <strong>luxury</strong>, to suit your needs and budget.
@@ -81,9 +79,9 @@ export default function Home({ dateRange, setDateRange, carsResults, setCarsResu
       <section  id="contact-us" className='h-[40px]'></section>
       <div className='p-4 bg-black h-52 text-white'>
         <h3>Contact Us</h3>
-        <h7>Tel: +357-99 667777</h7>
+        <h7>Tel: +357 99 667777</h7>
         <br></br>
-        <h7>Email: autoallure@protonmail.com</h7>
+        <h7>Email: y.kangkelidis@gmail.com</h7>
         <br></br>
         <h7>Address: Leoforos Amathous 32, Zanna Complex Block 1 Shop 8, Limassol, 4532</h7>
       </div>
